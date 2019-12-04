@@ -1,0 +1,8 @@
+hibernate\model\Employee.class
+hibernate\util\HibernateUtil.class
+servlet\SimpleServlet.class
+hibernate\model\Building.class
+hibernate\model\Project.class
+hibernate\model\Department.class
+hibernate\model\School.class
+hibernate\model\Factory.class
