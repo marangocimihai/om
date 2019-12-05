@@ -1,5 +1,9 @@
 package hibernate.model;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
+import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -12,11 +16,6 @@ public class Factory extends Building {
 
     public Factory() {
         super();
-    }
-
-    public Factory(String name, String owner, String manager) {
-        super(name, owner);
-        this.manager = manager;
     }
 
     public String getManager() {

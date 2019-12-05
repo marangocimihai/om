@@ -14,11 +14,6 @@ public class School extends Building {
         super();
     }
 
-    public School(String name, String owner, String principal) {
-        super(name, owner);
-        this.principal = principal;
-    }
-
     public String getPrincipal() {
         return principal;
     }

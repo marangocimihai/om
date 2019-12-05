@@ -2,11 +2,7 @@ package hibernate.util;
 
 import hibernate.model.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
-import java.lang.reflect.Array;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -24,7 +20,10 @@ public class HibernateUtil {
             transaction = manager.getTransaction();
             transaction.begin();
 
-            Employee employee = new Employee(name, surname, wage);
+            Employee employee = new Employee();
+            employee.setName(name);
+            employee.setSurname(surname);
+            employee.setWage(wage);
             Project project = new Project(pName, pTechnology);
 //            employee.setProject(project);
 //            project.setEmployee(employee);
@@ -50,8 +49,14 @@ public class HibernateUtil {
             transaction.begin();
 
             Department department = new Department(name, budget);
-            Employee employee0 = new Employee("Employee", "One", 15.0, department);
-            Employee employee1 = new Employee("Employee", "Two", 25.0, department);
+            Employee employee0 = new Employee();
+            employee0.setName("Employee");
+            employee0.setSurname("One");
+            employee0.setWage(15.0);
+            Employee employee1 = new Employee();
+            employee0.setName("Employee");
+            employee0.setSurname("Two");
+            employee0.setWage(25.0);
             department.setEmployees(new HashSet<>(Arrays.asList(employee0, employee1)));
             manager.persist(department);
 
@@ -75,11 +80,26 @@ public class HibernateUtil {
             transaction.begin();
 
             Project project = new Project(name, technology);
-            Employee employee0 = new Employee("Employee", "One", 15.0);
-            Employee employee1 = new Employee("Employee", "Two", 25.0);
-            Employee employee2 = new Employee("Employee", "Three", 25.0);
-            Employee employee3 = new Employee("Employee", "Four", 25.0);
-            Employee employee4 = new Employee("Employee", "Five", 25.0);
+            Employee employee0 = new Employee();
+            employee0.setName("Employee");
+            employee0.setSurname("One");
+            employee0.setWage(15);
+            Employee employee1 = new Employee();
+            employee0.setName("Employee");
+            employee0.setSurname("Two");
+            employee0.setWage(25);
+            Employee employee2 = new Employee();
+            employee0.setName("Employee");
+            employee0.setSurname("Three");
+            employee0.setWage(35);
+            Employee employee3 = new Employee();
+            employee0.setName("Employee");
+            employee0.setSurname("Four");
+            employee0.setWage(45);
+            Employee employee4 = new Employee();
+            employee0.setName("Employee");
+            employee0.setSurname("Five");
+            employee0.setWage(55);
             project.setEmployees(new HashSet<>(Arrays.asList(employee0, employee1, employee2, employee3, employee4)));
             manager.persist(project);
 
@@ -168,7 +188,7 @@ public class HibernateUtil {
             transaction = manager.getTransaction();
             transaction.begin();
 
-            javax.persistence.Query query = manager.createNamedQuery("find employee by id");
+            javax.persistence.Query query = manager.createNamedQuery("Employee.findById");
             query.setParameter("id", id);
             List<Employee> employees = query.getResultList();
             for (Employee emp : employees) {
@@ -204,11 +224,23 @@ public class HibernateUtil {
             transaction = manager.getTransaction();
             transaction.begin();
 
-            Factory factory1 = new Factory("Factory1", "Owner1", "Manager1");
-            Factory factory2 = new Factory("Factory2", "Owner2", "Manager2");
+            Factory factory1 = new Factory();
+            factory1.setName("Factory1");
+            factory1.setOwner("Owner1");
+            factory1.setManager("Manager1");
+            Factory factory2 = new Factory();
+            factory2.setName("Factory2");
+            factory2.setOwner("Owner2");
+            factory2.setManager("Manager2");
 
-            School school1 = new School("School1", "Owner3", "Principal1");
-            School school2 = new School("School2", "Owner4", "Principal2");
+            School school1 = new School();
+            school1.setName("School1");
+            school1.setOwner("Owner3");
+            school1.setPrincipal("Principal1");
+            School school2 = new School();
+            school2.setName("School2");
+            school2.setOwner("Owner4");
+            school2.setPrincipal("Principal2");
 
             manager.persist(factory1);
             manager.persist(factory2);
@@ -224,6 +256,54 @@ public class HibernateUtil {
         } finally {
             manager.close();
         }
+    }
+
+    public String cacheBehavior() {
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = manager.getTransaction();
+            transaction.begin();
+
+            Employee employee = new Employee();
+            employee.setName("Employee1");
+            employee.setSurname("Random");
+            employee.setWage(150);
+            Building building = new Building();
+            building.setName("Building1");
+            building.setOwner("Cineva");
+
+            manager.persist(employee);
+            manager.persist(building);
+
+            transaction.commit();
+        } catch (Exception ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            ex.printStackTrace();
+        } finally {
+            manager.close();
+        }
+        return printCacheState();
+    }
+
+    public String loadEntity() {
+        EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
+        Employee employee = em.find(Employee.class, 40);
+        System.out.println("Employee loaded: " + employee);
+        Building building = em.find(Building.class, 11);
+        System.out.println("Building loaded: " + building);
+        em.close();
+        return printCacheState();
+    }
+
+    public String printCacheState() {
+        Cache cache = ENTITY_MANAGER_FACTORY.getCache();
+        boolean eContains = cache.contains(Employee.class, 22);
+        boolean bContains = cache.contains(Building.class, 11);
+        return "Cache#contains() for Employee: " + eContains + "\n" + "Cache#contains() for Building: " + bContains;
     }
 
     public void closeEntityManagerFactory() {

@@ -41,26 +41,30 @@ public class SimpleServlet extends HttpServlet {
 //            dbh.addDepartment(depName, Double.parseDouble(depBudget));
 //            dbh.addProject(pName, pTechnology);
 
-            //get all employees
+//            get all employees
 //            List<String> info = dbh.getEmployees();
 //            for (String empInfo : info ) {
 //                out.println(empInfo);
 //            }
 
-            //get all projects
+//            get all projects
 //            List<String> info = dbh.getProjects();
 //            for (String projInfo : info) {
 //                out.println(projInfo);
 //            }
 
-            //get employee by id
+//            get employee by id
 //            List<String> info = dbh.getEmployeeById(20);
 //            for (String empInfo : info) {
 //                out.println(empInfo);
 //            }
 
-            //addBuildings
-            dbh.addBuildings();
+//            addBuildings
+//            dbh.addBuildings();
+
+
+            out.println(dbh.cacheBehavior());
+            out.println(dbh.loadEntity());
             out.println("\n\\n");
         } catch (IOException e) {
             dbh.closeEntityManagerFactory();

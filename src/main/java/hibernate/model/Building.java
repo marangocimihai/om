@@ -7,6 +7,7 @@ import java.io.Serializable;
 @Table
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
+@Cacheable
 public class Building implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,12 +21,6 @@ public class Building implements Serializable {
     private String owner;
 
     public Building() {
-    }
-
-    public Building(String name, String owner) {
-        super();
-        this.name = name;
-        this.owner = owner;
     }
 
     public int getId() {

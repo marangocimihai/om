@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "employee")
-@NamedQuery(query = "Select e from Employee e where e.id = :id", name = "find employee by id")
+@NamedQuery(query = "Select e from Employee e where e.id = :id", name = "Employee.findById")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,19 +35,6 @@ public class Employee {
     private Department department;
 
     public Employee() {
-    }
-
-    public Employee(String name, String surname, double wage) {
-        this.name = name;
-        this.surname = surname;
-        this.wage = wage;
-    }
-
-    public Employee(String name, String surname, double wage, Department department) {
-        this.name = name;
-        this.surname = surname;
-        this.wage = wage;
-        this.department = department;
     }
 
     public int getId() {
