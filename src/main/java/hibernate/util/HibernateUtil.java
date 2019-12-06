@@ -24,7 +24,9 @@ public class HibernateUtil {
             employee.setName(name);
             employee.setSurname(surname);
             employee.setWage(wage);
-            Project project = new Project(pName, pTechnology);
+            Project project = new Project();
+            project.setName(pName);
+            project.setTechnology(pTechnology);
 //            employee.setProject(project);
 //            project.setEmployee(employee);
             manager.persist(employee);
@@ -57,7 +59,7 @@ public class HibernateUtil {
             employee0.setName("Employee");
             employee0.setSurname("Two");
             employee0.setWage(25.0);
-            department.setEmployees(new HashSet<>(Arrays.asList(employee0, employee1)));
+//            department.setEmployees(new HashSet<>(Arrays.asList(employee0, employee1)));
             manager.persist(department);
 
             transaction.commit();
@@ -79,27 +81,29 @@ public class HibernateUtil {
             transaction = manager.getTransaction();
             transaction.begin();
 
-            Project project = new Project(name, technology);
+            Project project = new Project();
+            project.setName(name);
+            project.setTechnology(technology);
             Employee employee0 = new Employee();
             employee0.setName("Employee");
             employee0.setSurname("One");
             employee0.setWage(15);
             Employee employee1 = new Employee();
-            employee0.setName("Employee");
-            employee0.setSurname("Two");
-            employee0.setWage(25);
+            employee1.setName("Employee");
+            employee1.setSurname("Two");
+            employee1.setWage(25);
             Employee employee2 = new Employee();
-            employee0.setName("Employee");
-            employee0.setSurname("Three");
-            employee0.setWage(35);
+            employee2.setName("Employee");
+            employee2.setSurname("Three");
+            employee2.setWage(35);
             Employee employee3 = new Employee();
-            employee0.setName("Employee");
-            employee0.setSurname("Four");
-            employee0.setWage(45);
+            employee3.setName("Employee");
+            employee3.setSurname("Four");
+            employee3.setWage(45);
             Employee employee4 = new Employee();
-            employee0.setName("Employee");
-            employee0.setSurname("Five");
-            employee0.setWage(55);
+            employee4.setName("Employee");
+            employee4.setSurname("Five");
+            employee4.setWage(55);
             project.setEmployees(new HashSet<>(Arrays.asList(employee0, employee1, employee2, employee3, employee4)));
             manager.persist(project);
 
@@ -112,6 +116,40 @@ public class HibernateUtil {
         } finally {
             manager.close();
         }
+    }
+
+    public String updateProject(String technology) {
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction transaction = null;
+        StringBuilder sb = null;
+
+        try {
+            transaction = manager.getTransaction();
+            transaction.begin();
+
+            Project project = manager.find(Project.class, 3);
+            project.setTechnology(technology);
+            System.out.println("Here the proj name: " + project.getName());
+            Employee employee0 = manager.find(Employee.class, 18);
+            System.out.println("Here the name: " + employee0.getName());
+            Employee employee1 = manager.find(Employee.class, 28);
+            sb = new StringBuilder();
+            sb.append(employee0.toString());
+            sb.append("\n");
+            sb.append(employee1.toString());
+
+            manager.persist(project);
+
+            transaction.commit();
+        } catch (Exception ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            ex.printStackTrace();
+        } finally {
+            manager.close();
+        }
+        return sb.toString();
     }
 
     public List<String> getEmployees() {
@@ -305,6 +343,7 @@ public class HibernateUtil {
         boolean bContains = cache.contains(Building.class, 11);
         return "Cache#contains() for Employee: " + eContains + "\n" + "Cache#contains() for Building: " + bContains;
     }
+
 
     public void closeEntityManagerFactory() {
         ENTITY_MANAGER_FACTORY.close();

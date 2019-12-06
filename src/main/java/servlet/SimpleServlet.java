@@ -40,7 +40,7 @@ public class SimpleServlet extends HttpServlet {
 //            dbh.addEmployee(eName, eSurname, Double.parseDouble(eWage), pName, pTechnology);
 //            dbh.addDepartment(depName, Double.parseDouble(depBudget));
 //            dbh.addProject(pName, pTechnology);
-
+              out.println(dbh.updateProject(pTechnology));
 //            get all employees
 //            List<String> info = dbh.getEmployees();
 //            for (String empInfo : info ) {
@@ -63,8 +63,8 @@ public class SimpleServlet extends HttpServlet {
 //            dbh.addBuildings();
 
 
-            out.println(dbh.cacheBehavior());
-            out.println(dbh.loadEntity());
+//            out.println(dbh.cacheBehavior());
+//            out.println(dbh.loadEntity());
             out.println("\n\\n");
         } catch (IOException e) {
             dbh.closeEntityManagerFactory();

@@ -16,8 +16,8 @@ public class Department {
     @Column(name = "budget")
     private Double budget;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-    private Set<Employee> employees;
+//    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
+//    private Set<Employee> employees;
 
     public Department(String name, Double budget) {
         this.name = name;
@@ -48,11 +48,11 @@ public class Department {
         this.budget = budget;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
+//    public Set<Employee> getEmployees() {
+//        return employees;
+//    }
+//
+//    public void setEmployees(Set<Employee> employees) {
+//        this.employees = employees;
+//    }
 }

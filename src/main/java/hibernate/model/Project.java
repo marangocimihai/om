@@ -8,6 +8,7 @@ import java.util.Set;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
     private int id;
 
     @Column(name = "name")
@@ -16,16 +17,15 @@ public class Project {
     @Column(name = "technology")
     private String technology;
 
+    @Version
+    @Column(name = "version")
+    private int version;
+
     @ManyToMany(targetEntity = Employee.class, cascade = {CascadeType.ALL})
     @JoinTable(name = "employee_projects", joinColumns = {@JoinColumn(name = "project_id")}, inverseJoinColumns = {@JoinColumn(name = "employee_id")})
     private Set<Employee> employees;
 
     public Project() {
-    }
-
-    public Project(String name, String technology) {
-        this.name = name;
-        this.technology = technology;
     }
 
     public int getId() {
@@ -50,6 +50,14 @@ public class Project {
 
     public void setTechnology(String technology) {
         this.technology = technology;
+    }
+
+    public int getVersion() {
+        return version;
+    }
+
+    public void setVersion(int version) {
+        this.version = version;
     }
 
     public Set<Employee> getEmployees() {

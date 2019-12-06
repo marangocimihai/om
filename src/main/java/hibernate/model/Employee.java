@@ -11,6 +11,7 @@ import javax.persistence.*;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false, updatable = false)
     private int id;
 
     @Column(name = "name", nullable = false)
@@ -30,9 +31,9 @@ public class Employee {
     @Column(name = "update_date", nullable = false)
     private java.sql.Timestamp uDate;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false)
-    private Department department;
+//    @ManyToOne
+//    @JoinColumn(name = "department_id", nullable = false)
+//    private Department department;
 
     public Employee() {
     }
@@ -69,11 +70,24 @@ public class Employee {
         this.surname = surname;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
+//    public Department getDepartment() {
+//        return department;
+//    }
+//
+//    public void setDepartment(Department department) {
+//        this.department = department;
+//    }
 
-    public void setDepartment(Department department) {
-        this.department = department;
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", wage=" + wage +
+                ", cDate=" + cDate +
+                ", uDate=" + uDate +
+//                ", department=" + department +
+                '}';
     }
 }
