@@ -1,0 +1,20 @@
++ git config --list
++ git config --global [PROPERTY-NAME] [PROPERTY-VALUE]
+
+SWITCH TO A SPECIFIC BRANCH
++ git checkout [BRANCH-NAME]
+
+COMMIT ALL CHANGES
++ git add .
++ git commit -m [MESSAGE]
++ git push
+
+UPDATE LOCAL REPOSITORY WITH THE CHANGES FROM THE REMOTE ONE
++ git pull [REMOTE-NAME] [BRANCH-NAME] (i.e: git pull origin master)
++ git fetch (should not be mandatory, because git pull = get merge & git fetch)
+
+UNCOMMIT LOCAL CHANGES
++ git reset
+
+SET A ORIGIN
+git remote add [NAME] [GIT-REPO-URL] (i.e: git remote add origin http://github.com/unicredit.git/)

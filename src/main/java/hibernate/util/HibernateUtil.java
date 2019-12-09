@@ -3,10 +3,7 @@ package hibernate.util;
 import hibernate.model.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class HibernateUtil {
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
@@ -296,6 +293,77 @@ public class HibernateUtil {
         }
     }
 
+    public void updateEmployeeName(int id, String name) {
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = manager.getTransaction();
+            transaction.begin();
+
+            Employee employee = manager.find(Employee.class, id);
+            employee.setName(name);
+
+            manager.merge(employee);
+
+            transaction.commit();
+        } catch (Exception ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            ex.printStackTrace();
+        } finally {
+            manager.close();
+        }
+    }
+
+    public void removeEntity(Class entity, int id) {
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = manager.getTransaction();
+            transaction.begin();
+
+            Object temp = manager.getReference(entity, id);
+            manager.remove(temp);
+
+            transaction.commit();
+        } catch (Exception ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            ex.printStackTrace();
+        } finally {
+            manager.close();
+        }
+    }
+
+    public List<Employee> getEmployeeWithWageLessThan(int wage) {
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction transaction = null;
+        List<Employee> employees = null;
+
+        try {
+            transaction = manager.getTransaction();
+            transaction.begin();
+
+            Query query = manager.createNamedQuery("Employee.findByWageLessThan");
+            query.setParameter("wage", 150);
+            employees = query.getResultList();
+
+            transaction.commit();
+        } catch (Exception ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            ex.printStackTrace();
+        } finally {
+            manager.close();
+        }
+        return employees;
+    }
+
     public String cacheBehavior() {
         EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
         EntityTransaction transaction = null;
@@ -343,7 +411,6 @@ public class HibernateUtil {
         boolean bContains = cache.contains(Building.class, 11);
         return "Cache#contains() for Employee: " + eContains + "\n" + "Cache#contains() for Building: " + bContains;
     }
-
 
     public void closeEntityManagerFactory() {
         ENTITY_MANAGER_FACTORY.close();

@@ -1,0 +1,45 @@
+kubectl get all
+kubectl get pods
+kubectl get deployments
+kubectl get svc
+kubectl get pv
+kubectl get pvc
+kubectl get pod [POD-NAME] -o yaml
+kubectl get pod [POD-NAME] --watch
+kubectl get deployment [DEPLOYMENT-NAME] -o yaml
+kubectl get svc [SERVICE-NAME] -o yaml
+kubectl get secrets
+kubectl edit pv [PV-NAME]
+kubectl edit pvc [PVC-NAME]
+kubectl delete pv [PV-NAME]
+kubectl delete pv --all
+kubectl delete pvc [PVC-NAME]
+kubectl delete pvc --all
+kubectl delete pod [POD-NAME]
+kubectl delete pod --all
+kubectl delete pod --grace-period=0 --force=0 [POD-NAME]
+kubectl delete svc [SVC-NAME]
+kubectl delete deployment [DEPLOYMENT-NAME]
+kubectl exec -it [POD-NAME] bash
+kubectl exec -it [POD-NAME] sh
+kubectl describe pod [POD-NAME]
+kubectl logs [POD-NAME]
+kubectl logs [POD-NAME] --container [CONTAINER-NAME]
+kubectl config view
+kubectl config use-context [CONTEXT-NAME]
+kubectl create secret generic [SECRET-NAME] --from-literal=[USERNAME-VARIABLE-NAME]=[USERNAME] --from-literal=[PASSWORD-VARIABLE-NAME]=[PASSWORD]
+winpty kubectl exec -it [POD-NAME] --container [CONTAINER-NAME] bash
+kubectl cp -r j2:/owasp-claim/definitions definitions
+
+
+====AUTOCOMPLETION FOR KUBECTL====
+1. [ONE-TIMER] kubectl.exe completion bash > ~/kubectl-completion.bash
+2. [ALWAYS]    source ~/kubectl-completion.bash
+3. [ALWAYS]    alias kubectl='kubectl.exe' (autocompletion not working with kc. lol ?)
+
+alias kc='kubectl'
+alias kgp='kubectl get pod'
+alias kgd='kubectl get deployment'
+alias kgs='kubectl get svc'
+alias kex='winpty kubectl exec'
+alias kdelp='kubectl delete pod --force --grace-period=0'

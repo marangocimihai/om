@@ -7,7 +7,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "employee")
-@NamedQuery(query = "Select e from Employee e where e.id = :id", name = "Employee.findById")
+@NamedQueries(value = {
+        @NamedQuery(name = "Employee.findById", query = "Select e from Employee e where e.id = :id"),
+        @NamedQuery(name = "Employee.findByWageLessThan", query = "Select e from Employee e where e.wage < :wage"),
+})
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +27,7 @@ public class Employee {
     private double wage;
 
     @CreationTimestamp
-    @Column(name = "creation_date", nullable = false)
+    @Column(name = "creation_date", nullable = false, updatable = false)
     private java.sql.Timestamp cDate;
 
     @UpdateTimestamp
