@@ -69,7 +69,10 @@ public class SimpleServlet extends HttpServlet {
 //            dbh.removeEntity(Class.forName("hibernate.model.Employee"), 51);
 //            dbh.updateEmployeeName(48, "Cineva");
 
-            List<Employee> employees = dbh.getEmployeeWithWageLessThan(150);
+            List<Employee> employees = dbh.getEmployeeWithWageLessThan(new Double(150));
+            for (Employee employee : employees) {
+                out.println(employee.toString());
+            }
             out.println("\n\\n");
         } catch (IOException e) {
             dbh.closeEntityManagerFactory();

@@ -339,7 +339,7 @@ public class HibernateUtil {
         }
     }
 
-    public List<Employee> getEmployeeWithWageLessThan(int wage) {
+    public List<Employee> getEmployeeWithWageLessThan(Double wage) {
         EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
         EntityTransaction transaction = null;
         List<Employee> employees = null;
@@ -348,8 +348,9 @@ public class HibernateUtil {
             transaction = manager.getTransaction();
             transaction.begin();
 
+            System.out.println("Executing Employee.findByWageLessThan");
             Query query = manager.createNamedQuery("Employee.findByWageLessThan");
-            query.setParameter("wage", 150);
+            query.setParameter("wage", wage);
             employees = query.getResultList();
 
             transaction.commit();

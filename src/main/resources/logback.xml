@@ -2,6 +2,7 @@
 <configuration>
     <property scope="context" name="logFileName" value="om.log"/>
     <property scope="context" name="logFileLocation" value="C:/Users/c312882/IdeaProjects/om"/>
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} %-5level %logger{36} - %msg%n
@@ -13,14 +14,9 @@
               class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${logFileLocation}/${logFileName}</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} %-5level - %msg%n
             </Pattern>
         </encoder>
-        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-            <FileNamePattern>om.%i.log.zip</FileNamePattern>
-            <MinIndex>1</MinIndex>
-            <MaxIndex>10</MaxIndex>
-        </rollingPolicy>
         <triggeringPolicy
                 class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>2MB</MaxFileSize>
