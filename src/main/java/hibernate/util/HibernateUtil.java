@@ -125,9 +125,7 @@ public class HibernateUtil {
 
             Project project = manager.find(Project.class, 3);
             project.setTechnology(technology);
-            System.out.println("Here the proj name: " + project.getName());
             Employee employee0 = manager.find(Employee.class, 18);
-            System.out.println("Here the name: " + employee0.getName());
             Employee employee1 = manager.find(Employee.class, 28);
             sb = new StringBuilder();
             sb.append(employee0.toString());
@@ -292,16 +290,18 @@ public class HibernateUtil {
         }
     }
 
-    public void getEmployeeByName(String name) {
+    public List<Employee> getEmployeeByName(String name) {
         EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
         EntityTransaction transaction = null;
+        List<Employee> employees = null;
 
         try {
             transaction = manager.getTransaction();
             transaction.begin();
 
-            StoredProcedureQuery query = manager.createStoredProcedureQuery("getEmployeeByName");
-            query.setParameter("empname", "Employee");
+            StoredProcedureQuery pQuery = manager.createNamedStoredProcedureQuery("Employee.getEmployeeByName");
+            pQuery.setParameter("name", name);
+            employees = pQuery.getResultList();
 
             transaction.commit();
         } catch (Exception ex) {
@@ -312,6 +312,7 @@ public class HibernateUtil {
         } finally {
             manager.close();
         }
+        return employees;
     }
 
     public void addShop(String name, String street, int nr) {

@@ -11,8 +11,8 @@ import javax.persistence.*;
         @NamedQuery(name = "Employee.findById", query = "Select e from Employee e where e.id = :id"),
         @NamedQuery(name = "Employee.findByWageLessThan", query = "Select e from Employee e where e.wage < :wage"),
 })
-@NamedStoredProcedureQuery(name = "Employee.getEmployeeByName", procedureName = "getEmployeeByName", parameters = {
-        @StoredProcedureParameter(name = "empname", type = String.class, mode = ParameterMode.IN)
+@NamedStoredProcedureQuery(name = "Employee.getEmployeeByName", procedureName = "getEmployeeByName", resultClasses = Employee.class, parameters = {
+        @StoredProcedureParameter(name = "name", type = String.class, mode = ParameterMode.IN)
 })
 public class Employee extends Person {
     @Column(name = "wage", nullable = false)

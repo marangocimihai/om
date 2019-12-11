@@ -3,12 +3,12 @@ package servlet;
 import hibernate.model.Employee;
 import hibernate.util.HibernateUtil;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 
 
 public class SimpleServlet extends HttpServlet {
@@ -16,6 +16,7 @@ public class SimpleServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) {
         PrintWriter out = null;
+        PrintWriter finalOut = out;
         HibernateUtil dbh = null;
         try {
             out = response.getWriter();
@@ -76,7 +77,11 @@ public class SimpleServlet extends HttpServlet {
 //            }
 
             //add a shop
-            dbh.addShop("Carrefour", "Chimiei", 10);
+//            dbh.addShop("Carrefour", "Chimiei", 10);
+            List<Employee> employees = dbh.getEmployeeByName("Employee");
+            for (Employee employee : employees) {
+                out.println(employee.toString());
+            }
             out.println("\n\\n");
         } catch (IOException e) {
             dbh.closeEntityManagerFactory();
