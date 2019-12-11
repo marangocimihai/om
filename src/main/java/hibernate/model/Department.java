@@ -1,14 +1,14 @@
 package hibernate.model;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "department")
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id", updatable = false, nullable = false, unique = true)
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -24,11 +24,11 @@ public class Department {
         this.budget = budget;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

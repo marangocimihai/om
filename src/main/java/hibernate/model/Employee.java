@@ -11,18 +11,10 @@ import javax.persistence.*;
         @NamedQuery(name = "Employee.findById", query = "Select e from Employee e where e.id = :id"),
         @NamedQuery(name = "Employee.findByWageLessThan", query = "Select e from Employee e where e.wage < :wage"),
 })
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false)
-    private int id;
-
-    @Column(name = "name", nullable = false)
-    private String name;
-
-    @Column(name = "surname", nullable = false)
-    private String surname;
-
+@NamedStoredProcedureQuery(name = "Employee.getEmployeeByName", procedureName = "getEmployeeByName", parameters = {
+        @StoredProcedureParameter(name = "empname", type = String.class, mode = ParameterMode.IN)
+})
+public class Employee extends Person {
     @Column(name = "wage", nullable = false)
     private double wage;
 
@@ -41,36 +33,12 @@ public class Employee {
     public Employee() {
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public double getWage() {
         return wage;
     }
 
     public void setWage(double wage) {
         this.wage = wage;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
 //    public Department getDepartment() {
@@ -84,13 +52,11 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", wage=" + wage +
+                "wage=" + wage +
                 ", cDate=" + cDate +
                 ", uDate=" + uDate +
-//                ", department=" + department +
-                '}';
+                "} " + super.toString();
     }
+
+
 }

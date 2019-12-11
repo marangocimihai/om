@@ -20,3 +20,7 @@
 @manager.persist(entity) = add entity to database
 @manager.remove(entity) = remove entity from database
 @manager.merge(entity) = update entity in database
+@MappedSuperclass = will not be persisted in the database; acts like a simple parent class for the classes that extend it
+@Embeddable = a class which can be a field of other's
+@Embedded = the field is an embeddable type
+@UniqueConstraint = only one kind of a value/pair of values can be injected into the database (i.e.: if you already have an EMPLOYEE_NAME = MIHAI in the database, and you try to insert a new employee with the same name (MIHAI), it will throw an error - same with combinations of columns)

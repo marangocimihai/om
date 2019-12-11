@@ -1,7 +1,6 @@
 package hibernate.util;
 
 import hibernate.model.*;
-
 import javax.persistence.*;
 import java.util.*;
 
@@ -281,6 +280,55 @@ public class HibernateUtil {
             manager.persist(factory2);
             manager.persist(school1);
             manager.persist(school2);
+
+            transaction.commit();
+        } catch (Exception ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            ex.printStackTrace();
+        } finally {
+            manager.close();
+        }
+    }
+
+    public void getEmployeeByName(String name) {
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = manager.getTransaction();
+            transaction.begin();
+
+            StoredProcedureQuery query = manager.createStoredProcedureQuery("getEmployeeByName");
+            query.setParameter("empname", "Employee");
+
+            transaction.commit();
+        } catch (Exception ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            ex.printStackTrace();
+        } finally {
+            manager.close();
+        }
+    }
+
+    public void addShop(String name, String street, int nr) {
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = manager.getTransaction();
+            transaction.begin();
+
+            Address address = new Address();
+            address.setNr(nr);
+            address.setStreet(street);
+            Shop shop = new Shop();
+            shop.setName(name);
+            shop.setAddress(address);
+            manager.persist(shop);
 
             transaction.commit();
         } catch (Exception ex) {

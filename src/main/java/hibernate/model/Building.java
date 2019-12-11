@@ -11,8 +11,8 @@ import java.io.Serializable;
 public class Building implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
-    private int id;
+    @Column(name = "id", updatable = false, nullable = false, unique = true)
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -23,11 +23,11 @@ public class Building implements Serializable {
     public Building() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

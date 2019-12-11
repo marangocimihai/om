@@ -9,7 +9,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false)
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
@@ -19,7 +19,7 @@ public class Project {
 
     @Version
     @Column(name = "version")
-    private int version;
+    private Integer version;
 
     @ManyToMany(targetEntity = Employee.class, cascade = {CascadeType.ALL})
     @JoinTable(name = "employee_projects", joinColumns = {@JoinColumn(name = "project_id")}, inverseJoinColumns = {@JoinColumn(name = "employee_id")})
@@ -28,11 +28,11 @@ public class Project {
     public Project() {
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -52,11 +52,11 @@ public class Project {
         this.technology = technology;
     }
 
-    public int getVersion() {
+    public Integer getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 

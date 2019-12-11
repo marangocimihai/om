@@ -18,3 +18,12 @@ UNCOMMIT LOCAL CHANGES
 
 SET A ORIGIN
 git remote add [NAME] [GIT-REPO-URL] (i.e: git remote add origin http://github.com/unicredit.git/)
+
+REMOVE FILE/FOLDER FROM REMOTE REPOSITORY
+git rm --cached [FILENAME]
+git commit -m [MESSAGE]
+git push
+
+.GITIGNORE LOG FILES
+git rm --cached [FILENAME]
+add [FILENAME] to .gitignore
