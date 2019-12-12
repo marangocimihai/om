@@ -1,5 +1,6 @@
 package servlet;
 
+import hibernate.model.Department;
 import hibernate.model.Employee;
 import hibernate.util.HibernateUtil;
 
@@ -78,10 +79,19 @@ public class SimpleServlet extends HttpServlet {
 
             //add a shop
 //            dbh.addShop("Carrefour", "Chimiei", 10);
-            List<Employee> employees = dbh.getEmployeeByName("Employee");
-            for (Employee employee : employees) {
-                out.println(employee.toString());
-            }
+
+            //list employees using stored procedure
+//            List<Employee> employees = dbh.getEmployeeByName("Employee");
+//            for (Employee employee : employees) {
+//                out.println(employee.toString());
+//            }
+
+            //get department alongside its employees
+//            Department department = dbh.getDepartment(4);
+//            out.println(department.toString());
+
+            //add employee without project
+            dbh.addEmployee(eName, eSurname, Double.parseDouble(eWage));
             out.println("\n\\n");
         } catch (IOException e) {
             dbh.closeEntityManagerFactory();

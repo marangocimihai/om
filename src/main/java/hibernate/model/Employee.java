@@ -15,8 +15,8 @@ import javax.persistence.*;
         @StoredProcedureParameter(name = "name", type = String.class, mode = ParameterMode.IN)
 })
 public class Employee extends Person {
-    @Column(name = "wage", nullable = false)
-    private double wage;
+    @Column(name = "wage")
+    private Double wage;
 
     @CreationTimestamp
     @Column(name = "creation_date", nullable = false, updatable = false)
@@ -26,11 +26,16 @@ public class Employee extends Person {
     @Column(name = "update_date", nullable = false)
     private java.sql.Timestamp uDate;
 
-//    @ManyToOne
-//    @JoinColumn(name = "department_id", nullable = false)
-//    private Department department;
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
     public Employee() {
+    }
+
+    @PrePersist
+    public void checkWage() {
+        this.wage = this.wage < 25 ? 30.0 : this.wage;
     }
 
     public double getWage() {
@@ -41,13 +46,13 @@ public class Employee extends Person {
         this.wage = wage;
     }
 
-//    public Department getDepartment() {
-//        return department;
-//    }
-//
-//    public void setDepartment(Department department) {
-//        this.department = department;
-//    }
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
 
     @Override
     public String toString() {
@@ -57,6 +62,4 @@ public class Employee extends Person {
                 ", uDate=" + uDate +
                 "} " + super.toString();
     }
-
-
 }

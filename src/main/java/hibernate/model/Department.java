@@ -1,6 +1,7 @@
 package hibernate.model;
 
 import javax.persistence.*;
+import java.util.Map;
 
 @Entity
 @Table(name = "department")
@@ -16,12 +17,11 @@ public class Department {
     @Column(name = "budget")
     private Double budget;
 
-//    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL)
-//    private Set<Employee> employees;
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @MapKey(name = "id")
+    private Map<String, Employee> employees;
 
-    public Department(String name, Double budget) {
-        this.name = name;
-        this.budget = budget;
+    public Department() {
     }
 
     public Integer getId() {
@@ -48,11 +48,21 @@ public class Department {
         this.budget = budget;
     }
 
-//    public Set<Employee> getEmployees() {
-//        return employees;
-//    }
-//
-//    public void setEmployees(Set<Employee> employees) {
-//        this.employees = employees;
-//    }
+    public Map<String, Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(Map<String, Employee> employees) {
+        this.employees = employees;
+    }
+
+    @Override
+    public String toString() {
+        return "Department{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", budget=" + budget +
+                ", employees=" + employees +
+                '}';
+    }
 }

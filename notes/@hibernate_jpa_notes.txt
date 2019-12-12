@@ -24,3 +24,4 @@
 @Embeddable = a class which can be a field of other's
 @Embedded = the field is an embeddable type
 @UniqueConstraint = only one kind of a value/pair of values can be injected into the database (i.e.: if you already have an EMPLOYEE_NAME = MIHAI in the database, and you try to insert a new employee with the same name (MIHAI), it will throw an error - same with combinations of columns)
+@MapKey(name = [COLUMN-NAME]) = when using a map, we need to associate at least two entities. So, for example if we have a OneToMany <-> ManyToOne relationship, we could define a map inside the OneToMany entity to have multiple instances of ManyToOne entity, maping the id of each entity, so they could be identified in the map where Hibernate is going to inject them 

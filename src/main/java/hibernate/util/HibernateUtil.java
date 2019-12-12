@@ -1,14 +1,18 @@
 package hibernate.util;
 
 import hibernate.model.*;
+
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 public class HibernateUtil {
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
             .createEntityManagerFactory("Employee");
 
-    public void addEmployee(String name, String surname, Double wage, String pName, String pTechnology) {
+    public void addEmployeeWithProject(String name, String surname, Double wage, String pName, String pTechnology) {
         EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
         EntityTransaction transaction = null;
 
@@ -38,6 +42,31 @@ public class HibernateUtil {
         }
     }
 
+    public void addEmployee(String name, String surname, Double wage) {
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction transaction = null;
+
+        try {
+            transaction = manager.getTransaction();
+            transaction.begin();
+
+            Employee employee = new Employee();
+            employee.setName(name);
+            employee.setSurname(surname);
+            employee.setWage(wage);
+            manager.persist(employee);
+
+            transaction.commit();
+        } catch (Exception ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            ex.printStackTrace();
+        } finally {
+            manager.close();
+        }
+    }
+
     public void addDepartment(String name, Double budget) {
         EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
         EntityTransaction transaction = null;
@@ -46,7 +75,7 @@ public class HibernateUtil {
             transaction = manager.getTransaction();
             transaction.begin();
 
-            Department department = new Department(name, budget);
+            Department department = new Department();
             Employee employee0 = new Employee();
             employee0.setName("Employee");
             employee0.setSurname("One");
@@ -177,6 +206,29 @@ public class HibernateUtil {
             manager.close();
         }
         return info;
+    }
+
+    public Department getDepartment(Integer id) {
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction transaction = null;
+        Department department = null;
+
+        try {
+            transaction = manager.getTransaction();
+            transaction.begin();
+
+            department = manager.find(Department.class, 4);
+
+            transaction.commit();
+        } catch (Exception ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            ex.printStackTrace();
+        } finally {
+            manager.close();
+        }
+        return department;
     }
 
     public List<String> getProjects() {
