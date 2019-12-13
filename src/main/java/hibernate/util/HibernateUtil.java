@@ -449,7 +449,6 @@ public class HibernateUtil {
             transaction = manager.getTransaction();
             transaction.begin();
 
-            System.out.println("Executing Employee.findByWageLessThan");
             Query query = manager.createNamedQuery("Employee.findByWageLessThan");
             query.setParameter("wage", wage);
             employees = query.getResultList();
@@ -464,6 +463,56 @@ public class HibernateUtil {
             manager.close();
         }
         return employees;
+    }
+
+//    public Employee getEmployeeById(Integer id) {
+//        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+//        EntityTransaction transaction = null;
+//        Employee employee = null;
+//
+//        try {
+//            transaction = manager.getTransaction();
+//            transaction.begin();
+//
+//            Query query = manager.createNamedQuery("Employee.findById");
+//            query.setParameter("id", 4);
+//            employee = query.getSingleResult();
+//
+//            transaction.commit();
+//        } catch (Exception ex) {
+//            if (transaction != null) {
+//                transaction.rollback();
+//            }
+//            ex.printStackTrace();
+//        } finally {
+//            manager.close();
+//        }
+//        return employee;
+//    }
+
+    public List<Integer> getIdByOwner(String owner) {
+        EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
+        EntityTransaction transaction = null;
+        List<Integer> ids = null;
+
+        try {
+            transaction = manager.getTransaction();
+            transaction.begin();
+
+            Query query = manager.createNamedQuery("Building.findByOwner");
+            query.setParameter("owner", owner);
+            ids = query.getResultList();
+
+            transaction.commit();
+        } catch (Exception ex) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            ex.printStackTrace();
+        } finally {
+            manager.close();
+        }
+        return ids;
     }
 
     public String cacheBehavior() {
@@ -500,9 +549,7 @@ public class HibernateUtil {
     public String loadEntity() {
         EntityManager em = ENTITY_MANAGER_FACTORY.createEntityManager();
         Employee employee = em.find(Employee.class, 40);
-        System.out.println("Employee loaded: " + employee);
         Building building = em.find(Building.class, 11);
-        System.out.println("Building loaded: " + building);
         em.close();
         return printCacheState();
     }

@@ -8,6 +8,10 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "type")
 @Cacheable
+@SqlResultSetMapping(name = "BuildingId", columns = {@ColumnResult(name = "id")})
+@NamedNativeQueries(
+        @NamedNativeQuery(name = "Building.findByOwner", query = "Select id from Building where owner LIKE :owner", resultSetMapping = "BuildingId")
+)
 public class Building implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,7 +1,5 @@
 package servlet;
 
-import hibernate.model.Department;
-import hibernate.model.Employee;
 import hibernate.util.HibernateUtil;
 
 import javax.servlet.http.HttpServlet;
@@ -91,7 +89,13 @@ public class SimpleServlet extends HttpServlet {
 //            out.println(department.toString());
 
             //add employee without project
-            dbh.addEmployee(eName, eSurname, Double.parseDouble(eWage));
+//            dbh.addEmployee(eName, eSurname, Double.parseDouble(eWage));
+
+            List<Integer> ids = dbh.getIdByOwner("Cineva");
+            for (Integer id : ids) {
+                out.println(id);
+            }
+//            dbh.getIdByOwner("Cineva").forEach((id) -> finalOut.println(id));
             out.println("\n\\n");
         } catch (IOException e) {
             dbh.closeEntityManagerFactory();
