@@ -21,6 +21,11 @@
                 class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
             <MaxFileSize>2MB</MaxFileSize>
         </triggeringPolicy>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>c:/logs/timeBasedlogFile.%d{yyyy-MM-dd-HH-mm}.log</fileNamePattern>
+            <maxHistory>1</maxHistory>
+        </rollingPolicy>
     </appender>
 
     <logger name="org.hibernate.type" level="ALL"/>

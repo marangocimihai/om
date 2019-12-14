@@ -4,6 +4,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "employee")
@@ -19,16 +20,16 @@ public class Employee extends Person {
     private Double wage;
 
     @CreationTimestamp
-    @Column(name = "creation_date", nullable = false, updatable = false)
+    @Column(name = "creation_date")
     private java.sql.Timestamp cDate;
 
     @UpdateTimestamp
-    @Column(name = "update_date", nullable = false)
+    @Column(name = "update_date")
     private java.sql.Timestamp uDate;
 
-    @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false)
-    private Department department;
+//    @ManyToOne
+//    @JoinColumn(name = "department_id", nullable = false)
+//    private Department department;
 
     public Employee() {
     }
@@ -46,13 +47,13 @@ public class Employee extends Person {
         this.wage = wage;
     }
 
-    public Department getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Department department) {
-        this.department = department;
-    }
+    //    public Department getDepartment() {
+//        return department;
+//    }
+//
+//    public void setDepartment(Department department) {
+//        this.department = department;
+//    }
 
     @Override
     public String toString() {

@@ -17,9 +17,9 @@ public class Department {
     @Column(name = "budget")
     private Double budget;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @MapKey(name = "id")
-    private Map<String, Employee> employees;
+//    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @MapKey(name = "id")
+//    private Map<String, Employee> employees;
 
     public Department() {
     }
@@ -48,13 +48,13 @@ public class Department {
         this.budget = budget;
     }
 
-    public Map<String, Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Map<String, Employee> employees) {
-        this.employees = employees;
-    }
+//    public Map<String, Employee> getEmployees() {
+//        return employees;
+//    }
+//
+//    public void setEmployees(Map<String, Employee> employees) {
+//        this.employees = employees;
+//    }
 
     @Override
     public String toString() {
@@ -62,7 +62,7 @@ public class Department {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", budget=" + budget +
-                ", employees=" + employees +
+//                ", employees=" + employees +
                 '}';
     }
 }

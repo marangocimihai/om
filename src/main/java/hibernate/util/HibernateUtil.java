@@ -10,7 +10,7 @@ import java.util.List;
 
 public class HibernateUtil {
     private static final EntityManagerFactory ENTITY_MANAGER_FACTORY = Persistence
-            .createEntityManagerFactory("Employee");
+            .createEntityManagerFactory("om");
 
     public void addEmployeeWithProject(String name, String surname, Double wage, String pName, String pTechnology) {
         EntityManager manager = ENTITY_MANAGER_FACTORY.createEntityManager();
