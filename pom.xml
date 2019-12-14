@@ -131,13 +131,13 @@
                         <artifactId>liberty-maven-plugin</artifactId>
                         <version>2.7</version>
                         <executions>
-                            <!--<execution>
+                            <execution>
                                 <id>start-server</id>
                                 <phase>package</phase>
                                 <goals>
                                     <goal>start-server</goal>
                                 </goals>
-                            </execution>-->
+                            </execution>
                             <execution>
                                 <id>install-apps</id>
                                 <phase>install</phase>
@@ -157,7 +157,7 @@
             </build>
         </profile>
         <profile>
-            <id>install-server</id>
+            <id>install-and-create-server</id>
             <build>
                 <plugins>
                     <plugin>
@@ -165,9 +165,8 @@
                         <artifactId>liberty-maven-plugin</artifactId>
                         <version>2.7</version>
                         <configuration>
-                            <assemblyArchive>C:/Tools/wlp-webProfile8-19.0.0.11.zip</assemblyArchive>
+                            <assemblyArchive>E:\Work\wlp-webProfile8-18.0.0.3.zip</assemblyArchive>
                             <assemblyInstallDirectory>liberty</assemblyInstallDirectory>
-                            <configFile>src/main/resources/liberty/server.xml</configFile>
                             <appArtifact>
                                 <groupId>${project.groupId}</groupId>
                                 <artifactId>${project.artifactId}</artifactId>
@@ -181,6 +180,7 @@
                                 <phase>install</phase>
                                 <goals>
                                     <goal>install-server</goal>
+                                    <goal>create-server</goal>
                                 </goals>
                             </execution>
                         </executions>
