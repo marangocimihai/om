@@ -1,0 +1,130 @@
+OOP PRINCIPLES
+1. Encapsulation
+	a. each object keeps its state private inside a class
+2. Abstraction
+	a. extension of encapsulation
+	b. each object should only expose a high-level mechanism for using it
+	c. hides implementation details
+3. Inheritance
+	a. reusability
+4. Polymorphism
+	a. use the child classes as the parent, without mixing types
+
+SOLID
+S = single responsibility
+O = open-closed (open for extension, closed for modification)
+L = Liskov substitution (simple replaceability of objects)
+I = interface segregation (no client should be forced to depend on methods it does not use)
+D = dependency inversion (high level modules do not depend on low level modules / abstractions should not depend on details, but viceversa)
+---------------------------------
+
+ACID
+A = Atomicity
+C = Consistency
+I = Isolation
+D = Durability
+---------------------------------
+
+JAVA - ACCESS CONTROL MODIFIERS
+1. default - scope: same package
+2. public - scope: everywhere
+3. protected - scope: within the package & subclasses
+4. private - scope: within the class
+-------------------------------------------
+
+JAVA - NON-ACCESS MODIFIERS
+1. Final
+2. Static
+3. Transient
+4. Synchronized
+5. Volatile
+
+FINAL
+ - used with variable, method or class
+ - final method cannot be overriden, but can be used in subclass
+ - final class cannot be inherited (i.e.: String)
+
+ STATIC:
+ - can be accessed without instance of a class (i.e.: Employee.COMPANY_NAME)
+ - allocated memory only once (saves memory)
+ - all instances of a class will use the same reference of a static variable
+
+ TRANSIENT
+ - not serializable
+
+ SYNCHRONIZED
+ - access permited only by one thread at a time
+
+ VOLATILE
+ - tells the compiler that a variable can be changed unexpectedly
+ - only used with variables
+ --------------------------------
+
+ INSTANCEOF
+ - used to determine the type of an object
+ - if a extends b => b instance of a == true
+ ------------------------------------
+
+ STRING
+ - immutable - state cannot be changed
+ - everytime you create a new String (either by "" or using new operator) the JVM checks the String Pool first -> 
+ 	a. if the String exists in the String Pool, it returns the reference to it
+ 	b. if the String does not exists in the String Pool, it creates a new object in memory and places it in the pool as well for further use
+ - COMPARISONS:
+ 	a. equals() = compares content
+ 	b. compareTo() = compares content
+ 	c. == - compares references
+------------------------------------------------------------
+
+STRINGBUFFER                                                | 
+- mutable - state can be changed                            |  
+- used when we perform a lot of modifications to our string |  
+- thread-safe                                               |     
+- has reverse() function                                    |  => StringBuffer is slower than StringBuilder due to synchronization
+                                                            |  
+STRINGBUILDER                                               |  
+- mutable - state can be changed                            |
+- used when we perform a lot of modifications to our string |
+- NOT THREAD-SAFE (because of its methods)                  |
+-------------------------------------------------------------
+
+EXCEPTIONS
+1. Checked - checked at compile time (i.e.: FileNotFoundException)
+2. Unchecked - checked at runtime (i.e.: NullPointerException, ArrayIndexOutOfBound)
+3. Inner tries are allowed. They make use of its own catch() clauses as well as the outer catch() clauses, should the need arise
+-------------------------------------------------------------
+
+THREADS
+1. Lifecycle:
+	a. New
+	b. Runnable
+		i. by calling start() when in New state
+	c. Running
+	4. Waiting 
+		i. still alive
+		ii. waiting for another thread to perform a task
+	5. Terminated
+		i. when it completes its task
+2. Priorities:
+	a. MIN-PRIORITY == 1
+	b. MAX-PRIORITY == 10
+	c. NORM-PRIORITY == 5 (assigned by default to every thread)
+3. How to create a thread:
+	a. extending Thread class
+	b. implementing Runnable interface
+4. start() 
+	a. starts a thread (which firstly provides a new stack to the thread, and secondly calls run() method)
+	b. if you call run() method directly, there will be no stack provided to the thread, therefore the thread will run in the current cstack, which belongs to the main thread
+5. join()
+	a. waits until thread terminates
+6. synchronized keyword - resource (method, field) can be accessed only by one thread at a time
+7. synchronized block - used when you want to synchronize access to an object / part of a method
+8. deadlock - no thread can complete its execution because resources are locked (i.e.: T1 holds a but needs b; T2 holds but needs a)
+--------------------------------------------------------
+
+ABSTRACT CLASS VS. INTERFACE
+1. an abstract class lets its methods have bodies, whereas interfaces do not
+2. an abstract class is a real class, whereas an interface is an empty template
+3. an abstract class allows access modifiers (because it is a real class), whereas interfaces do not (everything is declared as public by default)
+4. an abstract class could be inherited by a class once at a time, whereas multiple interfaces could be implemented by a class
+--------------------------------------------------------
