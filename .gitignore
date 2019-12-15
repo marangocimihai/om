@@ -1,6 +1,7 @@
 .idea
 liberty
 target
+src/main/resources/lib
 /om.log
 /om.iml
-
+bash.exe.stackdump
