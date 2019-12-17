@@ -21,11 +21,11 @@ public class Employee extends Person {
 
     @CreationTimestamp
     @Column(name = "creation_date", updatable = false)
-    private java.sql.Timestamp cDate;
+    private Timestamp cDate;
 
     @UpdateTimestamp
     @Column(name = "update_date")
-    private java.sql.Timestamp uDate;
+    private Timestamp uDate;
 
 //    @ManyToOne
 //    @JoinColumn(name = "department_id", nullable = false)
