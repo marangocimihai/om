@@ -1,4 +1,4 @@
-package springboot.model;
+package spring.model;
 
 import javax.persistence.*;
 import java.io.Serializable;

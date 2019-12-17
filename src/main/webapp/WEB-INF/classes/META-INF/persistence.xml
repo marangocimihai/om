@@ -7,21 +7,21 @@
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
         <!-- Entity classes -->
-        <class>springboot.model.Employee</class>
-        <class>springboot.model.Project</class>
-        <class>springboot.model.Department</class>
-        <class>springboot.model.Building</class>
-        <class>springboot.model.Factory</class>
-        <class>springboot.model.School</class>
+        <class>spring.model.Employee</class>
+        <class>spring.model.Project</class>
+        <class>spring.model.Department</class>
+        <class>spring.model.Building</class>
+        <class>spring.model.Factory</class>
+        <class>spring.model.School</class>
 
         <shared-cache-mode>ENABLE_SELECTIVE</shared-cache-mode>
 
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="com.springboot.dao.cj.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.driver" value="com.spring.dao.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:springboot.mysql://localhost:3306/employee?characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC&amp;rewriteBatchedStatements=true"/>
-            <property name="javax.persistence.jdbc.user" value="springboot.dao"/>
-            <property name="javax.persistence.jdbc.password" value="springboot.dao"/>
+                      value="jdbc:spring.mysql://localhost:3306/employee?characterEncoding=utf8&amp;useSSL=false&amp;serverTimezone=UTC&amp;rewriteBatchedStatements=true"/>
+            <property name="javax.persistence.jdbc.user" value="spring.dao"/>
+            <property name="javax.persistence.jdbc.password" value="spring.dao"/>
             <property name="hibernate.show_sql" value="true"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
             <property name="hibernate.cache.use_second_level_cache" value="true"/>

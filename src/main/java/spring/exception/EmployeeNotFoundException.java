@@ -1,4 +1,4 @@
-package springboot.exception;
+package spring.exception;
 
 public class EmployeeNotFoundException extends Exception {
     public EmployeeNotFoundException() {

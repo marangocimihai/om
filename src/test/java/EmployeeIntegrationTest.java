@@ -1,4 +1,3 @@
-import springboot.model.Employee;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,8 +8,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import springboot.Application;
-import springboot.dao.EmployeeRepository;
+import spring.Application;
+import spring.model.Employee;
 
 import javax.persistence.*;
 
@@ -24,8 +23,6 @@ public class EmployeeIntegrationTest {
     @PersistenceContext
     private EntityManager manager;
     private EntityTransaction transaction;
-    @Autowired
-    private EmployeeRepository employeeRepository;
     @Autowired
     private TestRestTemplate rt;
     @LocalServerPort
@@ -51,7 +48,7 @@ public class EmployeeIntegrationTest {
         employee.setName("NameTest");
         employee.setSurname("SurnameTest");
         employee.setWage(67.0);
-        ResponseEntity re = this.rt.postForEntity("http://localhost:" + port + "/demo/add", employee, Employee.class);
+        ResponseEntity re = this.rt.postForEntity("http://localhost:" + port + "/employee/add", employee, Employee.class);
         assert 200 == re.getStatusCodeValue();
     }
 }
