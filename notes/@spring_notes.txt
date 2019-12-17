@@ -1,8 +1,9 @@
-@EntityScan - specify to SpringBoot where our JPA entities packages are
-@ComponentScan - specify to SpringBoot where our other Spring components are (controllers, services, etc.)
-@EnableJpaRepositories - specify to SpringBoot where our JPA repositories are
+@EntityScan - specify to Spring where our JPA entities packages are
+@ComponentScan - specify to Spring where our other Spring components are (controllers, services, etc.)
+@EnableJpaRepositories - specify to Spring where our JPA repositories are
 @Value - takes a value from application.properties and injects it into a variable
 @GetMapping - GET request
 @PostMapping - POST request
 @ResponseStatus - HTTP status to be returned by the service regarding its execution
 @ResponseBody - json to be returned by the service regarding its execution
+@EnableAutoConfiguration - specify Spring to auto-scan for Components, Configurations, Services, Repositories and so on
