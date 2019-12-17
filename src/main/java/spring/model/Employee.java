@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "employee")
@@ -53,7 +54,23 @@ public class Employee extends Person {
         this.wage = wage;
     }
 
-//    public Department getDepartment() {
+    public Timestamp getcDate() {
+        return cDate;
+    }
+
+    public void setcDate(Timestamp cDate) {
+        this.cDate = cDate;
+    }
+
+    public Timestamp getuDate() {
+        return uDate;
+    }
+
+    public void setuDate(Timestamp uDate) {
+        this.uDate = uDate;
+    }
+
+    //    public Department getDepartment() {
 //        return department;
 //    }
 //
