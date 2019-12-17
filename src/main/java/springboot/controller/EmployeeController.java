@@ -24,14 +24,21 @@ public class EmployeeController {
 
     @ResponseBody
     @PostMapping(path = "/find/wage", consumes = "application/json", produces = "application/json")
-    public Iterable<Employee> getEmployeesByWage(@RequestBody Employee employee) {
+    public Iterable<Employee> getByWage(@RequestBody Employee employee) {
         return employeeRepository.findByWage(employee.getWage());
     }
 
     @ResponseBody
     @GetMapping(path = "/find/all", produces = "application/json")
-    public Iterable<Employee> getAllEmployees() {
+    public Iterable<Employee> getAll() {
         return employeeRepository.findAll();
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping(path = "update/{id}", consumes = "application/json", produces = "application/json")
+    public Employee update(@RequestBody Employee employee, @PathVariable Integer id) throws EmployeeNotFoundException {
+        Employee emp = employeeRepository.findById(id).orElseThrow(EmployeeNotFoundException::new);
+        return employeeRepository.save(employee);
     }
 
     @ResponseBody

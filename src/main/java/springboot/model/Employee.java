@@ -22,7 +22,7 @@ public class Employee extends Person {
     private Double wage;
 
     @CreationTimestamp
-    @Column(name = "creation_date")
+    @Column(name = "creation_date", updatable = false)
     private java.sql.Timestamp cDate;
 
     @UpdateTimestamp
