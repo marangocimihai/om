@@ -1,4 +1,4 @@
-package hibernate.model;
+package springboot.model;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;

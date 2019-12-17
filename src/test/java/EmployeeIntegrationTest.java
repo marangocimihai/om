@@ -1,4 +1,4 @@
-import hibernate.model.Employee;
+import springboot.model.Employee;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,8 +9,8 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import spring.Application;
-import spring.dao.EmployeeRepository;
+import springboot.Application;
+import springboot.dao.EmployeeRepository;
 
 import javax.persistence.*;
 

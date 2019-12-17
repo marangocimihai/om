@@ -1,7 +1,6 @@
-package hibernate.model;
+package springboot.model;
 
 import javax.persistence.*;
-import java.util.Map;
 
 @Entity
 @Table(name = "department")

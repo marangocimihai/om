@@ -1,10 +1,12 @@
-package hibernate.model;
+package springboot.model;
+
+//import org.hibernate.annotations.CreationTimestamp;
+//import org.hibernate.annotations.UpdateTimestamp;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name = "employee")
@@ -34,6 +36,10 @@ public class Employee extends Person {
     public Employee() {
     }
 
+    public Employee(Double wage) {
+        this.wage = wage;
+    }
+
     @PrePersist
     public void checkWage() {
         this.wage = this.wage < 25 ? 30.0 : this.wage;
@@ -47,7 +53,7 @@ public class Employee extends Person {
         this.wage = wage;
     }
 
-    //    public Department getDepartment() {
+//    public Department getDepartment() {
 //        return department;
 //    }
 //
