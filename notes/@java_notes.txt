@@ -119,7 +119,7 @@ THREADS
 	a. waits until thread terminates
 6. synchronized keyword - resource (method, field) can be accessed only by one thread at a time
 7. synchronized block - used when you want to synchronize access to an object / part of a method
-8. deadlock - no thread can complete its execution because resources are locked (i.e.: T1 holds a but needs b; T2 holds but needs a)
+8. deadlock - no thread can complete its execution because resources are locked (i.e.: T1 holds a but needs b; T2 holds b but needs a)
 --------------------------------------------------------
 
 ABSTRACT CLASS VS. INTERFACE
@@ -128,3 +128,156 @@ ABSTRACT CLASS VS. INTERFACE
 3. an abstract class allows access modifiers (because it is a real class), whereas interfaces do not (everything is declared as public by default)
 4. an abstract class could be inherited by a class once at a time, whereas multiple interfaces could be implemented by a class
 --------------------------------------------------------
+
+WRAPPERS:
+1. Types
+	a. Character
+	b. Boolean
+	c. Numeric:
+		+ Byte
+		+ Short
+		+ Integer
+		+ Long
+		+ Float
+		+ Double
+2. Autoboxing = primitive encapsulated into its Wrapper
+3. Auto-unboxing = primitive extracted from its Wrapper
+4. d = Integer i + Double d (phases)
+	a. Auto-unboxing of i into int
+	b. Auto-unboxing of d into double
+	c. Perform the addition
+	d. Autoboxing of d into Double
+---------------------------------------------------------
+
+SERIALIZATION / DESERIALIZATION
+1. serialization - convert an object into a sequence of bytes
+2. deserialization - convert a sequence of bytes into an object
+3. ObjectOutputStream: 
+	a. writeObject()
+	b. readObject()
+4. Static fields do no get serialized (they belong to the class, not the object)
+
+---------------------------------------------------------
+
+GENERICS
+1. available with classes, interfaces and methods
+2. provides type-safety
+3. work only with objects (not primitives)
+---------------------------------------------------------
+
+COLLECTIONS:
+1. Collection (I)
+	a. Set (I)
+		+ Hashset (C)
+		+ LinkedHashSet (C)
+		+ SortedSet (I)
+			+ TreeSet (C)
+	b. List (I)
+		+ LinkedList  (C)
+		+ ArrayList (C)
+		+ Vector (C)
+	c. Queue (I)
+		+ LinkedList (C)
+		+ PriorityQueue (C)
+
+2. Map (I)
+	a. HashTable (C)
+	b. LinkedHashMap (C)
+	c. HashMap (C)
+	d. SortedMap (I)
+		+ TreeMap (C)
+
+3. List
+	a. random access and insertion, based on position
+	b. allows duplicates
+	c. additional methods:
+		+ get(index)
+		+ set(index, obj)
+		+ indexOf(obj)
+		+ subList(start, end)
+
+4. Set
+	a. does not allow duplicates
+	b. subinterface SortedSet arranges elements in natural order
+
+5. Queue
+	a. follows FIFO principle
+	b. additional methods:
+		+ poll()
+			- removes head element
+			- returns null if queue is empty
+		+ remove()
+			- removes head element
+			- returns NoSuchElementException if queue is empty
+		+ peek()
+			- returns head element (without removing)
+			- returns null if queue is empty
+		+ element()
+			- return head element (without removing)
+			- returns NoSuchElementException if queue is empty
+		+ offer()
+			- adds object to the queue
+
+6. ArrayList
+	a. dynamic size
+	b. slow manipulation due to the need of a lot of shifting if removing an element
+	c. random access
+	d. not synchronized
+	e. maintains insertion order
+
+7. LinkedList (List, Queue, Stack)
+	a. dynamic in nature - allocates memory when required
+	b. fast manipulation due to the no need of shifting
+	c. sequential access
+	d. not synchronized
+	e. difficult reverse traversing
+
+8. ArrayList vs. LinkedList
+	a. ArrayList allows random access, LinkedList allows sequential access
+	b. ArrayList access and manipulation of elements is faster (random access), LinkedList slower (sequential access)
+	c. ArrayList can only be a List, LinkedList can be a List, Queue or Stack
+	d. both are not synchronized
+
+9. HashSet
+	a. uses hash table for storage
+	b. no order
+
+10. LinkedHashSet
+	a. maintains a LinkedList of entries
+	b. maintains insertion order
+
+11. TreeSet
+	a. ascending order (if no comparator)
+	b. fast access of elements
+
+12. PriorityQueue
+	a. dynamic size
+	b. ascending order (if no comparator)
+	c. does not follow FIFO principle
+---------------------------------------------------------
+
+ITERATOR
+1. Iterator
+2. ListIterator
+3. for-each loop
+	a. for (String str : arrayOfStrings)
+	b. arrayOfStrings.forEach(str -> ... )
+---------------------------------------------------------
+
+MAP
+1. stores data in key and value association
+2. keys must be unique, values can be duplicates
+
+3. HashMap
+	a. uses hashtable to store the map
+	b. no order
+
+4. TreeMap
+	a. stores data in a tree structure
+	b. provides efficient means of storing key/value pair in efficient order
+	c. sorted order
+	d. allows rapid retrieval
+
+5. LinkedHashMap
+	a. maintains insertion order (in a LinkedList)
+	b. adds one method: removeEldestEntry() which can be overriden to remove the oldest element in the map
