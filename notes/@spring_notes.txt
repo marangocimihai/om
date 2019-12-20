@@ -1,10 +1,23 @@
+@SpringBootApplication - marks the main class of a Spring Boot App (@Configuration + @EnableAutoConfiguration + @ComponentScan)
 @EntityScan - specify to Spring where our JPA entities packages are
 @ComponentScan - specify to Spring where our other Spring components are (controllers, services, etc.)
 @EnableJpaRepositories - specify to Spring where our JPA repositories are
 @Value - takes a value from application.properties and injects it into a variable
 @GetMapping - GET request
 @PostMapping - POST request
+@PutMapping - PUT request
+@DeleteMapping - DELETE request
 @ResponseStatus - HTTP status to be returned by the service regarding its execution
 @ResponseBody - json to be returned by the service regarding its execution
 @EnableAutoConfiguration - specify Spring to auto-scan for Components, Configurations, Services, Repositories and so on
 @RestController = @Controller + @RequestBody
+@ControllerAdvice - error handling for all controllers by default
+@ExceptionHandler - handle specific exception and display it to the caller in a customized way (view)
+@Conditional   |
+			   | - load a configuration based on a condition
+@ConditionalOn |
+
+Spring Actuator 
+- exposes operational info about the running app (/health, /metrics, /info, dump, env, etc.)
+@Endpoint - create your own custom indicator
+@EndPointExtension - extend a predefined endpoint
