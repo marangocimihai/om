@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import spring.Application;
@@ -49,6 +50,6 @@ public class EmployeeIntegrationTest {
         employee.setSurname("SurnameTest");
         employee.setWage(67.0);
         ResponseEntity re = this.rt.postForEntity("http://localhost:" + port + "/employee/add", employee, Employee.class);
-        assert 200 == re.getStatusCodeValue();
+        assert HttpStatus.CREATED == re.getStatusCode();
     }
 }
