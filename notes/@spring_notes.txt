@@ -7,3 +7,4 @@
 @ResponseStatus - HTTP status to be returned by the service regarding its execution
 @ResponseBody - json to be returned by the service regarding its execution
 @EnableAutoConfiguration - specify Spring to auto-scan for Components, Configurations, Services, Repositories and so on
+@RestController = @Controller + @RequestBody
