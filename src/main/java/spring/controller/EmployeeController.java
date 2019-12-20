@@ -37,7 +37,6 @@ public class EmployeeController {
         return this.employeeRepository.save(employee);
     }
 
-    @ResponseBody
     @DeleteMapping(path = "/delete/id", consumes = "application/json", produces = "application/json")
     public void delete(@RequestBody EmployeeDto employeeDto) throws EmployeeNotFoundException, ParseException {
         Employee employee = convertToEntity(employeeDto);
@@ -45,13 +44,11 @@ public class EmployeeController {
         this.employeeRepository.deleteById(employee.getId());
     }
 
-    @ResponseBody
     @PostMapping(path = "/find/wage", consumes = "application/json", produces = "application/json")
     public Iterable<Employee> getByWage(@RequestBody Employee employee) {
         return this.employeeRepository.findByWage(employee.getWage());
     }
 
-    @ResponseBody
     @GetMapping(path = "/find/all", produces = "application/json")
     public Iterable<EmployeeDto> getAll() {
         Iterable<Employee> it = this.employeeRepository.findAll();
