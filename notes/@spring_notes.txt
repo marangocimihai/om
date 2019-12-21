@@ -1,3 +1,10 @@
+- spring IoC - inversion of control
+- spring container is the heart of Spring framework
+	a. receives metadata from a XML file, Java annotations or Java Code
+	b. gets its instructions on what objects to instantiate, configure and assemble (the created objects are the Spring beans)
+- spring bean - java objects which are managed by spring container:
+	a. 
+
 @SpringBootApplication - marks the main class of a Spring Boot App (@Configuration + @EnableAutoConfiguration + @ComponentScan)
 @EntityScan - specify to Spring where our JPA entities packages are
 @ComponentScan - specify to Spring where our other Spring components are (controllers, services, etc.)
