@@ -17,11 +17,18 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "/employee")
 public class EmployeeController {
-    @Autowired
     private EmployeeRepository employeeRepository;
+    private ModelMapper modelMapper;
 
     @Autowired
-    private ModelMapper modelMapper;
+    protected void setEmployeeRepository(EmployeeRepository employeeRepository) {
+        this.employeeRepository = employeeRepository;
+    }
+
+    @Autowired
+    protected void setModelMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
