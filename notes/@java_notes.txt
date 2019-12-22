@@ -114,7 +114,7 @@ THREADS
 	b. implementing Runnable interface
 4. start() 
 	a. starts a thread (which firstly provides a new stack to the thread, and secondly calls run() method)
-	b. if you call run() method directly, there will be no stack provided to the thread, therefore the thread will run in the current cstack, which belongs to the main thread
+	b. if you call run() method directly, there will be no stack provided to the thread, therefore the thread will run in the current stack, which belongs to the main thread
 5. join()
 	a. waits until thread terminates
 6. synchronized keyword - resource (method, field) can be accessed only by one thread at a time
