@@ -1,11 +1,34 @@
-- spring IoC - inversion of control
-- spring container is the heart of Spring framework
+1. spring IoC - inversion of control
+2. spring container is the heart of Spring framework
 	a. receives metadata from a XML file, Java annotations or Java Code
 	b. gets its instructions on what objects to instantiate, configure and assemble (the created objects are the Spring beans)
-- spring bean - java objects which are managed by spring container:
-	a. 
+3. spring bean
+	a. java objects which are managed by spring container
+	b. scope (= lifecycle + visibility)
+		- singleton
+			+ single instance of that bean
+			+ all requests for that bean will return the same object
+		- prototype
+			+ different instance of that bean
+			+ all requests for that bean will return a different object
+		- request
+			+ specific for a single HTTP request
+		- session
+			+ specific for a single HTTP session
+		- application
+			+ specific for the lifecycle of a ServletContext
+		- websocket
+			+ specific for a single WebSocket session
+4. dependency injection
+	a. is a pattern which to implement IoC
+	b. the act of injecting objects into other objects is done by Spring Container rather than by object themselves
+	a. can be done through:
+		- constructors
+		- setters
+		- fields (not recomended because of reflection which is costly)
 
 @SpringBootApplication - marks the main class of a Spring Boot App (@Configuration + @EnableAutoConfiguration + @ComponentScan)
+@Configuration - source of bean definitions
 @EntityScan - specify to Spring where our JPA entities packages are
 @ComponentScan - specify to Spring where our other Spring components are (controllers, services, etc.)
 @EnableJpaRepositories - specify to Spring where our JPA repositories are
@@ -23,8 +46,24 @@
 @Conditional   |
 			   | - load a configuration based on a condition
 @ConditionalOn |
+@Qualifier - referencing a bean by name (if there is more than one bean of the same type)
 
 Spring Actuator 
-- exposes operational info about the running app (/health, /metrics, /info, dump, env, etc.)
+1. exposes operational info about the running app (/health, /metrics, /info, dump, env, etc.)
 @Endpoint - create your own custom indicator
 @EndPointExtension - extend a predefined endpoint
+
+Spring AOP
+1. motivation: increase modularity by allowing the separation of cross-cutting concerns
+2. concepts:
+	a. Join Point
+		- a point during an execution of a script (method, property access, etc.)
+	b. Pointcut
+		- a regular expression that matches join points
+	c. Advice
+		- action taken by an aspect at a particular join point
+		- @Before
+		- @After 
+		- @After returning
+		- @After rethrowing
+		- @Around
