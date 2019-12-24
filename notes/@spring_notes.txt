@@ -38,7 +38,8 @@
 @PutMapping - PUT request
 @DeleteMapping - DELETE request
 @ResponseStatus - HTTP status to be returned by the service regarding its execution
-@ResponseBody - json to be returned by the service regarding its execution
+@ResponseBody - the response to be returned to the client is automatically serialized into JSON
+@RequestBody - the response received from client is mapped to an according object implicitly
 @EnableAutoConfiguration - specify Spring to auto-scan for Components, Configurations, Services, Repositories and so on
 @RestController = @Controller + @RequestBody
 @ControllerAdvice - error handling for all controllers by default
@@ -47,6 +48,7 @@
 			   | - load a configuration based on a condition
 @ConditionalOn |
 @Qualifier - referencing a bean by name (if there is more than one bean of the same type)
+@Order - inject the beans of the same type based on their order value
 
 Spring Actuator 
 1. exposes operational info about the running app (/health, /metrics, /info, dump, env, etc.)
