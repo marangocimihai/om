@@ -20,7 +20,7 @@
 		- websocket
 			+ specific for a single WebSocket session
 4. dependency injection
-	a. is a pattern which to implement IoC
+	a. is a pattern which implements IoC
 	b. the act of injecting objects into other objects is done by Spring Container rather than by object themselves
 	a. can be done through:
 		- constructors

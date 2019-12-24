@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import spring.dto.EmployeeDto;
 import spring.exception.EmployeeNotFoundException;
 import spring.model.Employee;
-import spring.repository.EmployeeRepository;
+import spring.service.EmployeeService;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -17,12 +17,12 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping(path = "/employee")
 public class EmployeeController {
-    private EmployeeRepository employeeRepository;
+    private EmployeeService employeeService;
     private ModelMapper modelMapper;
 
     @Autowired
-    protected void setEmployeeRepository(EmployeeRepository employeeRepository) {
-        this.employeeRepository = employeeRepository;
+    protected void setEmployeeService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @Autowired
@@ -32,33 +32,33 @@ public class EmployeeController {
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
-    public void create(@RequestBody EmployeeDto employeeDto) throws ParseException {
-        this.employeeRepository.save(convertToEntity(employeeDto));
+    public Employee create(@RequestBody EmployeeDto employeeDto) throws ParseException {
+        return this.employeeService.save(convertToEntity(employeeDto));
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PutMapping(path = "/update", consumes = "application/json", produces = "application/json")
     public Employee update(@RequestBody EmployeeDto employeeDto) throws EmployeeNotFoundException, ParseException {
         Employee employee = convertToEntity(employeeDto);
-        this.employeeRepository.findById(employee.getId()).orElseThrow(EmployeeNotFoundException::new);
-        return this.employeeRepository.save(employee);
+        this.employeeService.findById(employee.getId()).orElseThrow(EmployeeNotFoundException::new);
+        return this.employeeService.save(employee);
     }
 
     @DeleteMapping(path = "/delete/id", consumes = "application/json", produces = "application/json")
     public void delete(@RequestBody EmployeeDto employeeDto) throws EmployeeNotFoundException, ParseException {
         Employee employee = convertToEntity(employeeDto);
-        this.employeeRepository.findById(employee.getId()).orElseThrow(EmployeeNotFoundException::new);
-        this.employeeRepository.deleteById(employee.getId());
+        this.employeeService.findById(employee.getId()).orElseThrow(EmployeeNotFoundException::new);
+        this.employeeService.deleteById(employee.getId());
     }
 
     @PostMapping(path = "/find/wage", consumes = "application/json", produces = "application/json")
-    public Iterable<Employee> getByWage(@RequestBody Employee employee) {
-        return this.employeeRepository.findByWage(employee.getWage());
+    public Iterable<Employee> getByWage(@RequestBody EmployeeDto employeeDto) throws ParseException {
+        return this.employeeService.findByWage(convertToEntity(employeeDto).getWage());
     }
 
     @GetMapping(path = "/find/all", produces = "application/json")
     public Iterable<EmployeeDto> getAll() {
-        Iterable<Employee> it = this.employeeRepository.findAll();
+        Iterable<Employee> it = this.employeeService.findAll();
         List<Employee> employees = new ArrayList<>();
         it.forEach(employees::add);
         return employees.stream().map(this::convertToDto).collect(Collectors.toList());
