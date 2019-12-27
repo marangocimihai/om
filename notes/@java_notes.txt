@@ -1,21 +1,43 @@
 OOP PRINCIPLES
 1. Encapsulation
-	a. each object keeps its state private inside a class
+	a. wrapping data and methods within the class in combination with implementation hiding (through access control)
+	b. information hiding - through access control modifiers
+		- private field
+		- public setter for retrieving the private field
+	c. implementation hiding - through interfaces
 2. Abstraction
-	a. extension of encapsulation
-	b. each object should only expose a high-level mechanism for using it
-	c. hides implementation details
+	a. hides information not relevant to context
+	b. extension of encapsulation
 3. Inheritance
-	a. reusability
+	a. code reusability
 4. Polymorphism
-	a. use the child classes as the parent, without mixing types
+	a. types:
+		- compile time polymorphism
+			+ method overloading
+				* methods may have the same name, but their count or types must be different
+		- runtime polymorphism
+			+ method overriding
 
 SOLID
 S = single responsibility
-O = open-closed (open for extension, closed for modification)
-L = Liskov substitution (simple replaceability of objects)
-I = interface segregation (no client should be forced to depend on methods it does not use)
-D = dependency inversion (high level modules do not depend on low level modules / abstractions should not depend on details, but viceversa)
+	a. one class should have only one responsibility
+	b. we have 2 classes, Person and Account
+		- if we want to change the state of Person class, we do not need to modify Account class and vice-versa
+O = open-closed
+	a. opened for extension, closed for modification
+L = Liskov substitution
+	a. derived types must be completely substituable for their base types
+I = interface segregation 
+	a. clients should not be forced to depend on methods he does not use
+	b. use-case:
+		- a developer created Reportable interface having two methods: generateExcel() and generatePdf()
+		- a client wants to use this interface, but he intends to use only the generatePdf() functionality
+		- issue: the client is obliged to have the generateExcel() as well, even if he does not need it
+		- solution: create 2 other interfaces: ReportableExcel and ReportablePdf
+D = dependency inversion 
+	a. high level modules do not depend on low level modules
+	b. abstractions should not depend on details, but viceversa
+	c. best example: bean configuration in Spring
 ---------------------------------
 
 ACID
@@ -234,7 +256,7 @@ COLLECTIONS:
 
 8. ArrayList vs. LinkedList
 	a. ArrayList allows random access, LinkedList allows sequential access
-	b. ArrayList access and manipulation of elements is faster (random access), LinkedList slower (sequential access)
+	b. ArrayList access of elements is faster (random access), LinkedList slower (sequential access)
 	c. ArrayList can only be a List, LinkedList can be a List, Queue or Stack
 	d. both are not synchronized
 
@@ -523,3 +545,51 @@ DESIGN PATTERNS
 			}
 
 		}
+----------------------------------------------------------
+
+.equals()
+1. Must be:
+	a. reflexive
+	b. symmetric
+	c. transitive
+	d. consistent
+----------------------------------------------------------
+
+.hashCode()
+1. Criterias:
+	a. internal consistency
+		- the value of hashCode() may only change if a property that is in equals() changes
+	b. equals consistency
+		- objects that are equal to each other must return the same hashCode
+	c. collisions
+		- unequal objects may have the same hashCode
+----------------------------------------------------------
+
+RESTFUL SERVICES
+1. convention for building HTTP services
+2. client-server based
+3. uses HTTP protocol
+5. stateless (server does not store client info in-between requests)
+4. Cached
+	a. if the same request is given to the server, it will go into the cache and get the required information
+	b. reduces network traffic
+5. HTTP methods:
+	a. GET
+		- idempotent
+		- safe (because it does not modify the resource)
+		- can be cached
+	b. POST
+		- not idempotent (result is not always the same)
+		- not safe
+	c. PUT
+		- idempotent (result is always the same, no matter how many times of invoking)
+		- not safe
+	d. DELETE
+		- idempotent
+		- not safe
+	e. HEAD
+		- idempotent
+		- safe
+	f. PATCH
+	 	- not idempotent
+	 	- not safe
