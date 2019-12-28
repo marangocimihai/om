@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class EmployeeService implements IEmployeeService {
     @Autowired
-    EmployeeRepository employeeRepository;
+    private EmployeeRepository employeeRepository;
 
     @Override
     public Iterable<Employee> findAll() {
