@@ -1,6 +1,7 @@
 package spring.aspect;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -9,19 +10,21 @@ import org.springframework.stereotype.Component;
 
 @Aspect
 @Component
-public class EmployeeCRUDAspect {
-    @Before("execution(* spring.repository.EmployeeRepository.findByWage(..))")
-    public void logBeforeEmployeeRepository_findByWage(JoinPoint jp) {
-        System.out.println("EmployeeCRUDAspect.logBeforeEmployeeRepository_findByWage() : " + jp.getSignature().getName());
+public class EmployeeServiceCRUDAspect {
+    @Before("execution(* spring.service.EmployeeService.findByWage(..))")
+    public void logBeforeEmployeeService_findByWage(JoinPoint jp) {
+        System.out.println("EmployeeServiceCRUDAspect.logBeforeEmployeeService_findByWage() : " + jp.getSignature().getName());
     }
 
-    @After("execution(* spring.repository.EmployeeRepository.findAll(..))")
-    public void logAfterEmployeeRepository_findAll(JoinPoint jp) {
-        System.out.println("EmployeeCRUDAspect.logAfterEmployeeRepository_findAll() : " + jp.getSignature().getName());
+    @After("execution(* spring.service.EmployeeService.findAll(..))")
+    public void logAfterEmployeeService_findAll(JoinPoint jp) {
+        System.out.println("EmployeeServiceCRUDAspect.logAfterEmployeeService_findAll() : " + jp.getSignature().getName());
     }
 
-    @Around("execution(* spring.repository.EmployeeRepository.save(..))")
-    public void logAroundEmployeeRepository_save(JoinPoint jp) {
-        System.out.println("EmployeeCRUDAspect.logAroundEmployeeRepository_save() : " + jp.getSignature().getName());
+    @Around("execution(* spring.service.EmployeeService.save(..))")
+    public void logAroundEmployeeService_save(ProceedingJoinPoint jp) throws Throwable {
+        System.out.println("EmployeeServiceCRUDAspect.logAroundEmployeeService_save() : " + jp.getSignature().getName() + " - begin");
+        jp.proceed();
+        System.out.println("EmployeeServiceCRUDAspect.logAroundEmployeeService_save() : " + jp.getSignature().getName() + " - end");
     }
 }
