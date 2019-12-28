@@ -3,10 +3,8 @@
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
     <persistence-unit name="om" transaction-type="RESOURCE_LOCAL">
-        <!-- Persistence provider -->
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
-        <!-- Entity classes -->
         <class>spring.model.Employee</class>
         <class>spring.model.Project</class>
         <class>spring.model.Department</class>
