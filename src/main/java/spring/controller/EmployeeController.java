@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import spring.config.OwnerConfigProperties;
 import spring.dto.EmployeeDto;
 import spring.exception.EmployeeNotFoundException;
 import spring.model.Employee;
@@ -19,6 +20,12 @@ import java.util.stream.Collectors;
 public class EmployeeController {
     private EmployeeService employeeService;
     private ModelMapper modelMapper;
+    private OwnerConfigProperties ocp;
+
+    @Autowired
+    public void setOcp(OwnerConfigProperties ocp) {
+        this.ocp = ocp;
+    }
 
     @Autowired
     protected void setEmployeeService(EmployeeService employeeService) {
