@@ -6,14 +6,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import spring.controller.EmployeeController;
 import spring.exception.EmployeeNotFoundException;
 
+import java.io.IOException;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 @ControllerAdvice(assignableTypes = EmployeeController.class)
-public class EmployeeNotFoundExceptionHandler extends ResponseEntityExceptionHandler {
+public class EmployeeNotFoundExceptionHandler {
     @ExceptionHandler({EmployeeNotFoundException.class})
-    protected ResponseEntity<Object> employeeNotFound(Exception e, WebRequest request) {
-        return handleExceptionInternal(e, "Employee not found", new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    public ResponseEntity<Map<String, Object>> employeeNotFound(Exception ex,  WebRequest request) throws IOException {
+        Map<String, Object> response = new LinkedHashMap();
+        response.put("timestamp", new Date());
+        response.put("error", "Employee not found");
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 }
