@@ -27,6 +27,29 @@
 		- setters
 		- fields (not recomended because of reflection which is costly)
 
+5. wiring
+	a. @Autowired
+		- injection by 
+			+ fields
+			+ setters
+			+ constructors
+		- order of precedence
+			+ type
+			+ qualifier
+			+ name
+	b. @Resource = @Autowired + @Qualifier
+		- injection by
+			+ fields
+			+ setters
+		- order of precedence
+			+ name
+			+ type
+			+ qualifier
+	c. @Inject
+		- type
+		- qualifier
+		- name
+
 @SpringBootApplication - marks the main class of a Spring Boot App (@Configuration + @EnableAutoConfiguration + @ComponentScan)
 @Configuration - source of bean definitions
 @EntityScan - specify to Spring where our JPA entities packages are
@@ -41,7 +64,7 @@
 @ResponseBody - the response to be returned to the client is automatically serialized into JSON
 @RequestBody - the response received from client is mapped to an according object implicitly
 @EnableAutoConfiguration - specify Spring to auto-scan for Components, Configurations, Services, Repositories and so on
-@RestController = @Controller + @RequestBody
+@RestController = @Controller + @ResponseBody
 @ControllerAdvice - error handling for all controllers by default
 @ExceptionHandler - handle specific exception and display it to the caller in a customized way (view)
 @Conditional   |
@@ -49,6 +72,10 @@
 @ConditionalOn |
 @Qualifier - referencing a bean by name (if there is more than one bean of the same type)
 @Order - inject the beans of the same type based on their order value
+@ConfigurationProperties(prefix = "test") - injects all "test" prefixed properties from application.properties inside the members of this class
+@PropertySource - specify a properties file application.properties explicitly
+@TestPropertySource - specify a properties file application.properties explicitly for test purpose only
+					- specify properties directly using key=value convention for test purpose only
 
 Spring Actuator 
 1. exposes operational info about the running app (/health, /metrics, /info, dump, env, etc.)
@@ -69,3 +96,15 @@ Spring AOP
 		- @After returning
 		- @After rethrowing
 		- @Around
+
+Spring profiles
+1. brings profile-specific property files
+2. @Profile(name) to a bean or any other component will enable that bean/component to be available only when 'name' profile is active
+3. How to set active profile(s):
+	a. programmatically via WebApplicationInitializer interface
+	b. programmatically via ConfigurableEnvironment
+	c. context param in web.xml
+	d. JVM system params
+	e. env variable
+	f. maven profile
+	g. @ActiveProfile in Tests
