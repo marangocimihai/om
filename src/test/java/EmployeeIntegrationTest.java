@@ -1,5 +1,3 @@
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,39 +7,19 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Transactional;
 import spring.Application;
 import spring.model.Employee;
-
-import javax.persistence.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = Application.class,
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@Transactional
 public class EmployeeIntegrationTest {
-    @Autowired
-    private EntityManagerFactory ENTITY_MANAGER_FACTORY;
-    @Autowired
-    @PersistenceContext
-    private EntityManager manager;
-    private EntityTransaction transaction;
     @Autowired
     private TestRestTemplate rt;
     @LocalServerPort
     private int port;
-
-    @Before
-    public void initializeEntityManager() {
-        ENTITY_MANAGER_FACTORY = Persistence
-                .createEntityManagerFactory("om");
-        manager = ENTITY_MANAGER_FACTORY.createEntityManager();
-        transaction = manager.getTransaction();
-        transaction.begin();
-    }
-
-    @After
-    public void closeEntityManager() {
-        ENTITY_MANAGER_FACTORY.close();
-    }
 
     @Test
     public void addEmployee() {
