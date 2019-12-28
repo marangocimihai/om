@@ -28,12 +28,12 @@ public class EmployeeController {
     }
 
     @Autowired
-    protected void setEmployeeService(EmployeeService employeeService) {
+    public void setEmployeeService(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
     @Autowired
-    protected void setModelMapper(ModelMapper modelMapper) {
+    public void setModelMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 
