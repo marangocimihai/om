@@ -1,11 +1,8 @@
 .idea
 liberty
-<<<<<<< HEAD
 target
 src/main/resources/lib
 /om.log
 /om.iml
 /bash.exe.stackdump
-=======
 target
->>>>>>> 25a0d66242db60bb71af8cbb07d5ec458a8d8162
