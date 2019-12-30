@@ -25,7 +25,6 @@ public class InfoWebEndpointExtension {
     }
 
     private Integer getStatus(Map<String, Object> info) {
-        System.out.println("It has entered getStatus()");
         return 200;
     }
 }
