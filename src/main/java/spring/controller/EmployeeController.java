@@ -23,20 +23,12 @@ public class EmployeeController {
     private OwnerConfigProperties ocp;
 
     @Autowired
-    public void setOcp(OwnerConfigProperties ocp) {
+    public EmployeeController(EmployeeService employeeService, ModelMapper modelMapper, OwnerConfigProperties ocp) {
+        this.employeeService = employeeService;
+        this.modelMapper = modelMapper;
         this.ocp = ocp;
     }
-
-    @Autowired
-    public void setEmployeeService(EmployeeService employeeService) {
-        this.employeeService = employeeService;
-    }
-
-    @Autowired
-    public void setModelMapper(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
-    }
-
+    
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/add", consumes = "application/json", produces = "application/json")
     public Employee create(@RequestBody EmployeeDto employeeDto) throws ParseException {

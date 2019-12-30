@@ -15,22 +15,22 @@ public class FeaturesEndpoint {
         private Boolean enabled;
     }
 
-    @ReadOperation
+    @ReadOperation //GET
     public Map<String, Feature> getAll() {
         return features;
     }
 
-    @ReadOperation
+    @ReadOperation //GET
     public Feature get(@Selector String name) {
         return features.get(name);
     }
 
-    @WriteOperation
+    @WriteOperation //POST
     public void add(@Selector String name, Feature feature) {
         features.put(name, feature);
     }
 
-    @DeleteOperation
+    @DeleteOperation //DELETE
     public void delete(@Selector String name) {
         features.remove(name);
     }
