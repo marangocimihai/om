@@ -45,4 +45,9 @@ public class EmployeeService implements IEmployeeService {
     public List<Employee> findByWage(Double wage) {
         return this.employeeRepository.findByWage(wage);
     }
+
+    @Override
+    public Long count() {
+        return employeeRepository.count();
+    }
 }

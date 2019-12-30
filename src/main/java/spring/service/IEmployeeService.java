@@ -18,4 +18,6 @@ public interface IEmployeeService {
     void deleteById(int id) throws EmployeeNotFoundException;
 
     List<Employee> findByWage(Double wage);
+
+    Long count();
 }
