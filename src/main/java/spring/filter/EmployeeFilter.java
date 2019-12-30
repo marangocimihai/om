@@ -22,9 +22,9 @@ public class EmployeeFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
-        LOG.info("Logging request {} : {}", req.getMethod(), req.getRequestURI());
+        LOG.info("Logging request method={} : uri={}", req.getMethod(), req.getRequestURI());
         chain.doFilter(request, response);
-        LOG.info("Logging response {} : {}", res.getStatus(), res.getContentType());
+        LOG.info("Logging response status={} : contentType={}", res.getStatus(), res.getContentType());
     }
 
     @Override
