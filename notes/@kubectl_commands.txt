@@ -9,6 +9,8 @@ kubectl get pod [POD-NAME] --watch
 kubectl get deployment [DEPLOYMENT-NAME] -o yaml
 kubectl get svc [SERVICE-NAME] -o yaml
 kubectl get secrets
+kubectl get apiservices
+kubectl get quota
 kubectl edit pv [PV-NAME]
 kubectl edit pvc [PVC-NAME]
 kubectl delete pv [PV-NAME]
@@ -43,3 +45,4 @@ alias kgd='kubectl get deployment'
 alias kgs='kubectl get svc'
 alias kex='winpty kubectl exec'
 alias kdelp='kubectl delete pod --force --grace-period=0'
+alias kgq='kubectl get quota'
