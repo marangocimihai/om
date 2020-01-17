@@ -16,8 +16,7 @@ OOP PRINCIPLES
 			+ method overloading
 				* methods may have the same name, but their count or types must be different
 		- runtime polymorphism
-			+ upcasting
-				* class A -> class B extends A -> A a = new B()
+			+ method overriding
 
 SOLID
 S = single responsibility
@@ -27,15 +26,15 @@ S = single responsibility
 O = open-closed
 	a. opened for extension, closed for modification
 L = Liskov substitution
-	a. derived types must be completely substitutable for their base types
-I = interface segregation 
+	a. derived types must be completely substituable for their base types
+I = interface segregation
 	a. clients should not be forced to depend on methods he does not use
 	b. use-case:
 		- a developer created Reportable interface having two methods: generateExcel() and generatePdf()
 		- a client wants to use this interface, but he intends to use only the generatePdf() functionality
 		- issue: the client is obliged to have the generateExcel() as well, even if he does not need it
 		- solution: create 2 other interfaces: ReportableExcel and ReportablePdf
-D = dependency inversion 
+D = dependency inversion
 	a. high level modules do not depend on low level modules
 	b. abstractions should not depend on details, but viceversa
 	c. best example: bean configuration in Spring
@@ -49,10 +48,10 @@ D = Durability
 ---------------------------------
 
 JAVA - ACCESS CONTROL MODIFIERS
-1. default - scope: current package
+1. default - scope: same package
 2. public - scope: everywhere
-3. protected - scope: current package & subclasses
-4. private - scope: current class
+3. protected - scope: within the package & subclasses
+4. private - scope: within the class
 -------------------------------------------
 
 JAVA - NON-ACCESS MODIFIERS
@@ -85,18 +84,14 @@ FINAL
 
  INSTANCEOF
  - used to determine the type of an object
- - if a extends b => b instanceOf a == true
+ - if a extends b => b instance of a == true
  ------------------------------------
 
  STRING
  - immutable - state cannot be changed
- - everytime you create a new String:
- 	a. by literal:
- 		- if the String exists in the String Pool, it returns the reference to it
- 		- if the String does not exist in the String Pool, it creates a new object in String Pool
- 	b. by new:
- 		- it creates a new object in heap memory
- 		- can be placed in String Pool as well by calling intern()
+ - everytime you create a new String (either by "" or using new operator) the JVM checks the String Pool first ->
+ 	a. if the String exists in the String Pool, it returns the reference to it
+ 	b. if the String does not exists in the String Pool, it creates a new object in memory and places it in the pool as well for further use
  - COMPARISONS:
  	a. equals() = compares content
  	b. compareTo() = compares content
@@ -106,13 +101,13 @@ FINAL
 STRINGBUFFER                                                |
 - mutable - state can be changed                            |
 - used when we perform a lot of modifications to our string |
-- thread-safe (synchronized methods)                        |
+- thread-safe                                               |
 - has reverse() function                                    |  => StringBuffer is slower than StringBuilder due to synchronization
                                                             |
 STRINGBUILDER                                               |
 - mutable - state can be changed                            |
 - used when we perform a lot of modifications to our string |
-- not thread-safe											|
+- NOT THREAD-SAFE (because of its methods)                  |
 - has reverse() function                                    |
 -------------------------------------------------------------
 
@@ -126,21 +121,21 @@ THREADS
 1. Lifecycle:
 	a. New
 	b. Runnable
-		- by calling start() when in New state
+		i. by calling start() when in New state
 	c. Running
-	d. Waiting 
-		- still alive
-		- waiting for another thread to perform a task
-	e. Terminated
-		- when it completes its task
+	4. Waiting
+		i. still alive
+		ii. waiting for another thread to perform a task
+	5. Terminated
+		i. when it completes its task
 2. Priorities:
 	a. MIN-PRIORITY == 1
-	b. NORM-PRIORITY == 5 (assigned by default to every thread)
-	c. MAX-PRIORITY == 10
+	b. MAX-PRIORITY == 10
+	c. NORM-PRIORITY == 5 (assigned by default to every thread)
 3. How to create a thread:
 	a. extending Thread class
 	b. implementing Runnable interface
-4. start() 
+4. start()
 	a. starts a thread (which firstly provides a new stack to the thread, and secondly calls run() method)
 	b. if you call run() method directly, there will be no stack provided to the thread, therefore the thread will run in the current stack, which belongs to the main thread
 5. join()
@@ -155,7 +150,6 @@ ABSTRACT CLASS VS. INTERFACE
 2. an abstract class is a real class, whereas an interface is an empty template
 3. an abstract class allows access modifiers (because it is a real class), whereas interfaces do not (everything is declared as public by default)
 4. an abstract class could be inherited by a class once at a time, whereas multiple interfaces could be implemented by a class
-5. an abstract class may have a constructor (for field initialization), whereas an interface cannot
 --------------------------------------------------------
 
 WRAPPERS:
@@ -163,12 +157,12 @@ WRAPPERS:
 	a. Character
 	b. Boolean
 	c. Numeric:
-		- Byte
-		- Short
-		- Integer
-		- Long
-		- Float
-		- Double
+		+ Byte
+		+ Short
+		+ Integer
+		+ Long
+		+ Float
+		+ Double
 2. Autoboxing = primitive encapsulated into its Wrapper
 3. Auto-unboxing = primitive extracted from its Wrapper
 4. d = Integer i + Double d (phases)
@@ -176,12 +170,13 @@ WRAPPERS:
 	b. Auto-unboxing of d into double
 	c. Perform the addition
 	d. Autoboxing of d into Double
+5. Which can be which: byte -> short -> int -> long -> float -> double
 ---------------------------------------------------------
 
 SERIALIZATION / DESERIALIZATION
-1. serialization = convert an object into a sequence of bytes
-2. deserialization = convert a sequence of bytes into an object
-3. ObjectOutputStream: 
+1. serialization - convert an object into a sequence of bytes
+2. deserialization - convert a sequence of bytes into an object
+3. ObjectOutputStream:
 	a. writeObject()
 	b. readObject()
 4. Static fields do no get serialized (they belong to the class, not the object)
@@ -192,66 +187,61 @@ GENERICS
 1. available with classes, interfaces and methods
 2. provides type-safety
 3. work only with objects (not primitives)
-4. upper-bound = ? extends Field
-	- ? can be any Field or subclass of Field
-5. lower-bound = ? super Field
-	- ? can be any Field or superclass of Field
 ---------------------------------------------------------
 
 COLLECTIONS:
 1. Collection (I)
 	a. Set (I)
-		- Hashset (C)
-		- LinkedHashSet (C)
-		- SortedSet (I)
+		+ Hashset (C)
+		+ LinkedHashSet (C)
+		+ SortedSet (I)
 			+ TreeSet (C)
 	b. List (I)
-		- LinkedList  (C)
-		- ArrayList (C)
-		- Vector (C)
+		+ LinkedList  (C)
+		+ ArrayList (C)
+		+ Vector (C)
 	c. Queue (I)
-		- LinkedList (C)
-		- PriorityQueue (C)
+		+ LinkedList (C)
+		+ PriorityQueue (C)
 
 2. Map (I)
 	a. HashTable (C)
 	b. LinkedHashMap (C)
 	c. HashMap (C)
 	d. SortedMap (I)
-		- TreeMap (C)
+		+ TreeMap (C)
 
 3. List
 	a. random access and insertion, based on position
 	b. allows duplicates
-	c. does allow insertion of multiple nulls
-	d. additional methods:
-		- get(index)
-		- set(index, obj)
-		- indexOf(obj)
-		- subList(start, end)
+	c. additional methods:
+		+ get(index)
+		+ set(index, obj)
+		+ indexOf(obj)
+		+ subList(start, end)
 
 4. Set
 	a. does not allow duplicates
-	b. subinterface SortedSet arranges elements in natural order
-	c. does allow insertion of a single null
+	b. unordered
+	c. subinterface SortedSet arranges elements in natural order
 
 5. Queue
 	a. follows FIFO principle
 	b. additional methods:
-		- poll()
-			+ removes head element
-			+ returns null if queue is empty
-		- remove()
-			+ removes head element
-			+ returns NoSuchElementException if queue is empty
-		- peek()
-			+ returns head element (without removing)
-			+ returns null if queue is empty
-		- element()
-			+ returns head element (without removing)
-			+ returns NoSuchElementException if queue is empty
-		- offer()
-			+ adds object to the queue
+		+ poll()
+			- removes head element
+			- returns null if queue is empty
+		+ remove()
+			- removes head element
+			- returns NoSuchElementException if queue is empty
+		+ peek()
+			- returns head element (without removing)
+			- returns null if queue is empty
+		+ element()
+			- return head element (without removing)
+			- returns NoSuchElementException if queue is empty
+		+ offer()
+			- adds object to the queue
 
 6. ArrayList
 	a. dynamic size
@@ -272,7 +262,6 @@ COLLECTIONS:
 	b. ArrayList access of elements is faster (random access), LinkedList slower (sequential access)
 	c. ArrayList can only be a List, LinkedList can be a List, Queue or Stack
 	d. both are not synchronized
-	e. ArrayList better for get(), LinkedList better for add() & remove()
 
 9. HashSet
 	a. uses hash table for storage
@@ -294,12 +283,20 @@ COLLECTIONS:
 
 ITERATOR
 1. Iterator
-	a. allows removal of elements while traversing
+	a. can modify collection during traversing
+	b. used on List, Set, Map
 2. ListIterator
-	a. allows modification and removal of elements while traversing
+	a. can modify collection during traversing
+	b. used on List only
 3. for-each loop
 	a. for (String str : arrayOfStrings)
 	b. arrayOfStrings.forEach(str -> ... )
+	c. cannot modify collection during traversing
+4. 2 types:
+	a. fail-fast
+		- throw exception if collection is modified while traversing it
+	b. fail-safe
+		- does not throw exception if collection is modified while traversing it
 ---------------------------------------------------------
 
 MAP
@@ -338,13 +335,13 @@ DESIGN PATTERNS
 	b.  public class ThreadSafeSingleton {
 		    private static ThreadSafeSingleton instance;
 		    private ThreadSafeSingleton(){}
-		    
+
 		    public static synchronized ThreadSafeSingleton getInstance(){
 		        if(instance == null) {
 		            instance = new ThreadSafeSingleton();
 		        }
 		        return instance;
-		    }  
+		    }
 		}
 
 4. Factory
@@ -353,7 +350,7 @@ DESIGN PATTERNS
 			public abstract String getRAM();
 			public abstract String getHDD();
 			public abstract String getCPU();
-			
+
 			@Override
 			public String toString(){
 				return "RAM= "+this.getRAM()+", HDD="+this.getHDD()+", CPU="+this.getCPU();
@@ -364,7 +361,7 @@ DESIGN PATTERNS
 			private String ram;
 			private String hdd;
 			private String cpu;
-			
+
 			public PC(String ram, String hdd, String cpu){
 				this.ram=ram;
 				this.hdd=hdd;
@@ -377,7 +374,7 @@ DESIGN PATTERNS
 			private String ram;
 			private String hdd;
 			private String cpu;
-			
+
 			public Server(String ram, String hdd, String cpu){
 				this.ram=ram;
 				this.hdd=hdd;
@@ -396,7 +393,7 @@ DESIGN PATTERNS
 
 5. Adapter
 	a. acts as a connector between two incompatible interfaces
-	b.  public interface Movable {                      |            
+	b.  public interface Movable {                      |
 		    // returns speed in MPH                     |
 		    double getSpeed();                          |
 	    }                                               |
@@ -426,7 +423,7 @@ DESIGN PATTERNS
 		    }														|
 		}															|
 
-		@Test 																			 |	
+		@Test 																			 |
 		public void whenConvertingMPHToKMPH_thenSuccessfullyConverted() {				 |
 		    Movable bugattiVeyron = new BugattiVeyron();								 | => concrete usage
 		    MovableAdapter bugattiVeyronAdapter = new MovableAdapterImpl(bugattiVeyron); |
@@ -438,19 +435,19 @@ DESIGN PATTERNS
 			//methods to register and unregister observers
 			public void register(Observer obj);
 			public void unregister(Observer obj);
-			
+
 			//method to notify observers of change
 			public void notifyObservers();
-			
+
 			//method to get updates from subject
 			public Object getUpdate(Observer obj);
-			
+
 		}
 
 		public interface Observer {
 			//method to update the observer, used by subject
 			public void update();
-			
+
 			//attach with subject to observe
 			public void setSubject(Subject sub);
 		}
@@ -460,7 +457,7 @@ DESIGN PATTERNS
 			private String message;
 			private boolean changed;
 			private final Object MUTEX= new Object();
-			
+
 			public MyTopic(){
 				this.observers=new ArrayList<>();
 			}
@@ -499,7 +496,7 @@ DESIGN PATTERNS
 			public Object getUpdate(Observer obj) {
 				return this.message;
 			}
-			
+
 			//method to post message to the topic
 			public void postMessage(String msg){
 				System.out.println("Message Posted to Topic:"+msg);
@@ -537,25 +534,25 @@ DESIGN PATTERNS
 			public static void main(String[] args) {
 				//create subject
 				MyTopic topic = new MyTopic();
-				
+
 				//create observers
 				Observer obj1 = new MyTopicSubscriber("Obj1");
 				Observer obj2 = new MyTopicSubscriber("Obj2");
 				Observer obj3 = new MyTopicSubscriber("Obj3");
-				
+
 				//register observers to the subject
 				topic.register(obj1);
 				topic.register(obj2);
 				topic.register(obj3);
-				
+
 				//attach observer to subject
 				obj1.setSubject(topic);
 				obj2.setSubject(topic);
 				obj3.setSubject(topic);
-				
+
 				//check if any update is available
 				obj1.update();
-				
+
 				//now send message to subject
 				topic.postMessage("New Message");
 			}
@@ -591,14 +588,14 @@ RESTFUL SERVICES
 	b. reduces network traffic
 5. HTTP methods:
 	a. GET
-		- idempotent (result is always the same, no matter how many times of invoking)
+		- idempotent
 		- safe (because it does not modify the resource)
 		- can be cached
 	b. POST
 		- not idempotent (result is not always the same)
 		- not safe
 	c. PUT
-		- idempotent
+		- idempotent (result is always the same, no matter how many times of invoking)
 		- not safe
 	d. DELETE
 		- idempotent

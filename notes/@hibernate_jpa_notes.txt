@@ -7,13 +7,52 @@
 @NamedQuery(query = "Select e from Employee e where e.id = :id", name = "Employee.findById") = a query which can be invoked for the entity that belongs to using Employee.findById identifier
 @CreationTimestamp = timestamp regarding the creation of the record in the database
 @UpdateTimestamp = timestamp regarding the update of the record in the database
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE) = the current entity may be inherited by other classes using SINGLE_TABLE strategy which will insert all the records in a single table
-@DiscriminatorColumn(name = "type") = the column which will act as an identifier (in order to keep track which record belongs to which entity)
-@DiscriminatorValue(value = "F") = the value to be inserted in the @DiscriminatorColumn in order to keep track of what entity current record belongs to
-@OneToOne = maps one-to-one relationship with the entity the field corresponds to
-@OneToMany = maps one-to-many relationship with the entity the field corresponds to
-@ManyToMany = maps many-to-many relationship with the entity the field corresponds to
-@JoinTable(name = "employee_projects", joinColumns = {@JoinColumn(name = "project_id")}, inverseJoinColumns = {@JoinColumn(name = "employee_id")}) = creates a join table named 'employee_projects' which uses 'project_id' column of the current entity and the 'employee_id' of the other entity in order to map them within the table
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE | .JOINED | .TABLE_PER_CLASS):
+	1. SINGLE_TABLE (3 entities: A, B and C -> B extends A -> C extends A)
+		a. one table for all entities
+		b. might contain null values because, for example, some properties of A could not be valid for B and vice-versa
+		c. inside A
+			- @InheritanceType(strategy=InheritanceType.SINGLE_TABLE)
+			- @DiscriminatorColumn(name="type")
+		d. inside B
+			- @DiscriminatorColumn("B")
+		e. inside C
+			- @DiscriminatorColumn("C")
+	2. JOINED (3 entities: A, B and C -> B extends A -> C extends A)
+		a. a table for each entity
+		b. the only common column is the ID for obvious further joining reason
+		c. inside A
+			- @InheritanceType(strategy=InheritanceType.JOINED)
+		d. inside B: nothing
+		e. inside C: nothing
+	3. TABLE_PER_CLASS (3 entities: A, B and C -> B extends A -> C extends A)
+		a. a table for each child-entity (so only B and C)
+		b. each table will contain its own correspondent info from parent entity (A)
+		c. inside A:
+			- @InheritanceType(strategy=InheritanceType.TABLE_PER_CLASS)
+@OneToOne
+	1. two entities: A and B
+	2. inside A:
+		a. @OneToOne(mappedBy="A") to B instance
+		b. @PrimaryKeyJoinColumn
+	3. inside B:
+		a. @OneToOne() to A instance
+@OneToMany
+	1. two entities A and B
+	2. inside A:
+		a. @OneToMany(mappedBy="A") to B instance
+	1. inside B:
+   		a. @ManyToOne
+   		b. @JoinColumn(name="a_id") to A instance
+@ManyToMany
+	1. two entities: A and B
+	2. inside A:
+		a. @ManyToMany(targetEntity = B.class)
+		b. @JoinTable(name = "a_items",
+					 joinColumns = {@JoinColumn(name="a_id")},
+					 inverseJoinColumns = {@JoinColumn(name="b_id")})
+		c. the idea on ManyToMany relationship is that a new table with 2 columns will be created, which will contain the primary key of the first entity (joinColumns) and the primary key of second entity (inverseJoinColumns)
+	3. inside B: nothing
 @find() = returns the object fetching it firstly from the cache then from the database
 @getReference() = returns the reference of an object that might not exist (a proxy object); loads the data from cache/database only when you access other properties of the object
 @manager.find(Entity.class, id) = find entity in database with id = id
