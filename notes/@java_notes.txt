@@ -581,12 +581,26 @@ DESIGN PATTERNS
 RESTFUL SERVICES
 1. convention for building HTTP services
 2. client-server based
-3. uses HTTP protocol
-5. stateless (server does not store client info in-between requests)
-4. Cached
+3. protocols used
+	a. HTTP
+4. stateless (server does not store client info in-between requests)
+5. REST requests are sent through
+	a. GET
+	b. POST
+	c. PUT
+	d. DELETE
+	e. PATCH
+	f. etc.
+6. message exchange is performed through
+	a. JSON
+	b. XML
+	c. HTML
+	d. CSV
+	e. etc.
+7. Cached
 	a. if the same request is given to the server, it will go into the cache and get the required information
 	b. reduces network traffic
-5. HTTP methods:
+8. HTTP methods:
 	a. GET
 		- idempotent
 		- safe (because it does not modify the resource)
@@ -606,3 +620,23 @@ RESTFUL SERVICES
 	f. PATCH
 	 	- not idempotent
 	 	- not safe
+
+SOAP SERVICES
+1. follow SOAP web services specifications
+2. client-server based
+3. protocols used:
+	a. HTTP
+	b. SMTP
+	c. TCP
+	d. UDP
+	e. etc.
+4. stateless/stateful
+5. SOAP requests are sent through
+	a. POST
+6. message exchange is performed through
+	a. XML
+7. not cached
+8. XML messages have a defined structure: SOAP Message
+	a. Envelope
+	b. Header
+	c. Body
