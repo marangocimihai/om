@@ -1,0 +1,25 @@
+ELASTICSEARCH
+1. full text search-engine
+2. NoSQL database
+	a. database -> index
+	b. table -> type
+	c. row -> document
+3. written in Java
+4. easy to scale
+5. RESTful interface
+	a. HTTP
+	b. JSON
+6. Filter vs. Query
+	a. filter answers to "Does it match ? Yes or no"
+	b. Query answers to "How well does it match ?"
+	c. filter is for non-analyzed data
+	d. query is for full-text search
+	c. filter is faster
+	d. filter is cacheable
+
+READY API
+1. Suite of tool for ensuring:
+	a. quality
+	b. performance
+	c. security
+2. Quite close to SoapUI, for testing SOAP/REST webservices
