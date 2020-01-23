@@ -27,6 +27,7 @@ DROP PROCEDURE [NAME];
 #database creation
 CREATE TABLE IF NOT EXISTS employee(Id INTEGER AUTO_INCREMENT PRIMARY KEY, Department_id INTEGER, Name VARCHAR(255) NOT NULL, Surname VARCHAR(255) NOT NULL, Wage double);
 CREATE TABLE IF NOT EXISTS department(Id INTEGER AUTO_INCREMENT PRIMARY KEY, Name VARCHAR(255) NOT NULL, Budget double);
+CREATE TABLE IF NOT EXISTS event(id INTEGER AUTO_INCREMENT PRIMARY KEY, Name varchar(255), Visitor varchar(255), Properties json, Browser json);
 
 #database population
 INSERT INTO employee(department_id, name, surname, wage) VALUES(1, 'Marangoci', 'Mihai', 50);
@@ -36,6 +37,7 @@ INSERT INTO employee(department_id, name, surname, wage) VALUES(2, 'Ajitaritei',
 INSERT INTO employee(department_id, name, surname, wage) VALUES(3, 'Sutea', 'Silviu', 50);
 INSERT INTO employee(department_id, name, surname, wage) VALUES(3, 'Tatarcan', 'Andrada', 40);
 INSERT INTO employee(department_id, name, surname, wage) VALUES(NULL, 'Iurescu', 'Alex', 30);
+INSERT INTO event(name, visitor, properties, browser) VALUES ('purchase', '4', '{ "amount": 500 }', '{ "name": "Chrome", "os": "Windows", "resolution": { "x": 1680, "y": 1050 } }');
 
 INSERT INTO department(name, budget) VALUES("DevOps", 6000);
 INSERT INTO department(name, budget) VALUES("Java", 5000);
@@ -62,9 +64,12 @@ MINUS - returns the result-set obtained by the first SELECT removing the result-
 INTERSECT - returns the combined result-set of the two SELECT clauses which perfectly match
 
 #remove commands
-DELETE FROM Employee WHERE id < 10; [delete all rows]
-TRUNCATE TABLE Employee; [delete all rows freeing the space containing the table]
-DROP TABLE Employee [delete all rows and the table structure from the database]
+DELETE FROM Employee WHERE id < 10; 
+	- deletes all rows one by one
+TRUNCATE TABLE Employee;
+	- drops the table and recreates it again
+DROP TABLE Employee 
+	- delete all rows and the table structure from the database
 
 #others
 UNION - combine result-sets of two or more SELECT statements
@@ -74,6 +79,7 @@ HAVING - basically acts like a WHERE, but can be used with aggregate functions
 EXISTS - test existence of any record in a subquery
 
 SELECT * INTO Employee_backup FROM Employee; - copy every record from Employee table into Employee_backup table
+SELECT browser->'$.name' FROM event; - select JSON values out of JSON columns
 
 #alter table
 ALTER TABLE employee ADD age INTEGER; - add a column
@@ -81,3 +87,6 @@ ALTER TABLE Employee MODIFY wage NUMERIC; - modify a column nature
 ALTER TABLE Employee CHANGE COLUMN name tempname VARCHAR(255); - change column name
 ALTER TABLE Employee DROP COLUMN surname; - delete column
 ALTER TABLE Employee RENAME TO TempEmployee; - rename a table
+ALTER TABLE Employee ADD COLUMN Fullname VARCHAR(255) GENERATED ALWAYS AS (CONCAT(name, ' ', surname)) VIRTUAL;
+ALTER TABLE ADD PRIMARY KEY(id); - add primary key to table
+ALTER TABLE ADD UNIQUE INDEX employee(name); - set name column to accept only unique values
