@@ -108,3 +108,85 @@ Spring profiles
 	e. env variable
 	f. maven profile
 	g. @ActiveProfile in Tests
+
+@Transactional
+1. Used on:
+	a. interfaces
+		- not recommended, but acceptable for cases like @Repository ones
+	b. classes
+		- applied only to public methods within the class
+		- private and protected methods are ignored
+	c. methods
+		- applied only to public methods
+2. Allows to set:
+	a. propagation
+	b. isolation
+	c. timeout
+	d. read-only
+	e. rollback
+3. Propagation
+	a. REQUIRED (default)
+		- Spring checks if there is an active transaction
+			+ if yes, it makes use of it
+			+ if not, it creates a new one
+	b. SUPPORTS
+		- Spring checks if there is an active transaction
+			+ if yes, it makes use of it
+			+ if not, execution is non-transactional
+	c. MANDATORY
+		- Spring checks if there is an active transaction
+			+ if yes, it makes use of it
+			+ if not, it throws IllegalTransactionStateException
+	d. NEVER
+		- Spring checks if there is an active transaction
+			+ if yes, it throws IllegalTransactionStateException
+	e. NOT_SUPPORTED
+		- Spring checks if there is an active transaction
+			+ if yes, it suspends it, then the execution is non-transactional
+	f. REQUIRES_NEW
+		- Spring checks if there is an active transaction
+			+ if yes, it suspends it, then it creates a new one 
+	g. NESTED
+		- Spring checks if there is an active transaction
+			+ if yes, it marks a savepoint
+				* then, if the business logic throws an exception, the transaction rollbacks to this savepoint
+			+ if not, it works like REQUIRED
+4. Isolation
+	a. describes how changes applied by concurrent transaction are visible to each other
+	b. concurrency side effects
+		- dirty read
+			+ reads the uncommited change of a concurrent transaction
+		- nonrepeatable read
+			+ get different value on re-read of a row if a concurrent transaction updates the same row and commits
+		- phantom read
+			+ get different rows after re-execution of a range query if another transaction adds or removes some rows in the range and commits
+	c. Levels:
+		- READ_UNCOMMITTED
+			+ prevents
+				* none
+			+ suffers from
+				* dirty read
+				* nonrepeatable read
+				* phantom read
+			+ lowest level of isolation
+		- READ_COMMITED
+			+ prevents
+				* dirty read
+			+ suffers
+				* nonrepeatable read
+				* phantom read
+		- REPEATABLE_READ
+			+ prevents
+				* dirty read
+				* nonrepeatable read
+			+ suffers
+				* phantom read
+		- SERIALIZABLE
+			+ prevents
+				* dirty reads
+				* nonrepeatable read
+				* phantom read
+			+ suffers
+				* none
+			+ highest level of isolation
+			+ can lead to the lowest concurrent access because it executes concurrent calls sequentially
