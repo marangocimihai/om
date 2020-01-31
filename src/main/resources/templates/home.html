@@ -1,7 +1,21 @@
-<html xmlns:th="http://www.w3.org/1999/xhtml">
-<head><title>Home Page</title></head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" media="screen" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" media="screen" th:href="@{/css/core.css}"/>
+    <script th:href="@{/js/jquery.min.js}"></script>
+    <script th:href="@{/js/bootstrap.min.js}"></script>
+</head>
 <body>
-<p>Project: <span th:text="${appName}"></span></p>
-<p>Version: <span th:text="${appVersion}"></span></p>
+    <div th:replace="fragments/header :: header"/>
+    <div class="container">
+        <h1>OM</h1>
+        <div class="hero-unit">
+            <p>Welcome! You are identified as ${name} ${surname} having the following e-mail ${mail}</p>
+            <p><a th:href="@{/om/signup}" class="btn btn-large btn-success">Sign up</a></p>
+        </div>
+        <div th:replace="fragments/footer :: footer"/>
+    </div>
 </body>
 </html>
