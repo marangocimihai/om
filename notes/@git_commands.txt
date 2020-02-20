@@ -35,6 +35,7 @@ BRANCH COMMANDS
 + git branch -d [BRANCH-NAME] - delete branch [BRANCH-NAME]
 + git checkout [BRANCH-NAME] - switch to [BRANCH-NAME] branch
 + git checkout -b [BRANCH-NAME] - creates a new branch [BRANCH-NAME] and switches to it
++ git push [REMOTE-NAME] --delete [BRANCH-NAME] - delete branch from remote
 
 git merge vs. git rebase
 - git merge - one final commit
