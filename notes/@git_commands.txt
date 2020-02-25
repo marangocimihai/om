@@ -46,5 +46,5 @@ VARIOUS COMMANDS
 + git unstash - restores work from stash
 + git diff - show differences (between files, folder, branches, etc.)
 + git show - show HEAD commit compared with local changes
-+ git reset - undo local changes
++ git reset --hard - undo local changes
 + git revert - creates a commit that undo local changes
